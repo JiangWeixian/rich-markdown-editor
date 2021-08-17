@@ -1,8 +1,5 @@
-import {
-  splitListItem,
-  sinkListItem,
-  liftListItem,
-} from "prosemirror-schema-list";
+import { EditorState } from "prosemirror-state";
+import toggleBlockType from "../commands/toggleBlockType";
 import Node from "./Node";
 
 export default class Color extends Node {
@@ -29,6 +26,7 @@ export default class Color extends Node {
         },
       ],
       toDOM: node => {
+        console.log(node)
         return [
           "span",
           {
@@ -41,34 +39,25 @@ export default class Color extends Node {
     };
   }
 
-  handleChange = event => {
-    const { view } = this.editor;
-    const { tr } = view.state;
-    const { top, left } = event.target.getBoundingClientRect();
-    const result = view.posAtCoords({ top, left });
-
-    if (result) {
-      const transaction = tr.setNodeMarkup(result.inside, undefined, {
-        checked: event.target.checked,
-      });
-      view.dispatch(transaction);
-    }
-  };
-
-  keys({ type }) {
-    return {
-      Enter: splitListItem(type),
-      Tab: sinkListItem(type),
-      "Shift-Tab": liftListItem(type),
-      "Mod-]": sinkListItem(type),
-      "Mod-[": liftListItem(type),
-    };
-  }
-
   toMarkdown(state, node) {
     state.write(`{${node.attrs.bg}}(`);
     state.renderContent(node);
     state.write(`)`)
+  }
+
+  commands({ type, schema }) {
+    return attrs => (state: EditorState, dispatch) => {
+      const { selection } = state;
+      const from = selection.$from.pos;
+      const to = selection.$to.pos;
+      const content = state.doc.slice(from, to)
+      // const text = schema.nodes.text.create("div")
+      // state.schema.text("div")
+      const node = type.create({ ...attrs, bg: 'red' }, content.content);
+      const transaction = state.tr.replaceSelectionWith(node);
+      dispatch(transaction);
+      return true;
+    };
   }
 
   parseMarkdown() {
