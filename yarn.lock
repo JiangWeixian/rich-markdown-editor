@@ -7757,8 +7757,8 @@ markdown-escapes@^1.0.0:
 
 markdown-it-color@^2.1.1:
   version "2.1.1"
-  resolved "http://bnpm.byted.org/markdown-it-color/-/markdown-it-color-2.1.1.tgz#e85adf9c7d31f97f2617abbacbd582b67cf6adda"
-  integrity sha512-GqXOSjT+RdGvxjdmPfRS/9XDr5dg4e2kC/mXbXK5Y1lbh/rVepoeaUGaD0Lmi1qS5M6cnbm9GrC8bu9YY8rRKQ==
+  resolved "https://registry.nlark.com/markdown-it-color/download/markdown-it-color-2.1.1.tgz#e85adf9c7d31f97f2617abbacbd582b67cf6adda"
+  integrity sha1-6FrfnH0x+X8mF6u6y9WCtnz2rdo=
 
 markdown-it-container@^3.0.0:
   version "3.0.0"
