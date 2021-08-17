@@ -49,6 +49,7 @@ import Table from "./nodes/Table";
 import TableCell from "./nodes/TableCell";
 import TableHeadCell from "./nodes/TableHeadCell";
 import TableRow from "./nodes/TableRow";
+import Color from './nodes/Color'
 
 // marks
 import Bold from "./marks/Bold";
@@ -314,6 +315,7 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
             dictionary,
             onShowToast: this.props.onShowToast,
           }),
+          new Color(),
           new CheckboxList(),
           new CheckboxItem(),
           new BulletList(),

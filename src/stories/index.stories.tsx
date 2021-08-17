@@ -206,6 +206,17 @@ Focused.args = {
   This editor starts in focus`,
 };
 
+export const Color = Template.bind({});
+Color.args = {
+  defaultValue: `# Welcome
+
+Just an easy to use **Markdown** editor with \`slash commands\`
+
+{red}(sample)
+
+`,
+};
+
 export const Dark = Template.bind({});
 Dark.args = {
   dark: true,
