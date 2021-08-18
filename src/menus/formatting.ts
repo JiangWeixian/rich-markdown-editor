@@ -71,7 +71,7 @@ export default function formattingMenuItems(
       name: "color",
       tooltip: 'color',
       icon: HighlightIcon,
-      active: () => true, // isNodeActive(schema.nodes.color),
+      active: isNodeActive(schema.nodes.color),
       visible: true// !isTemplate,
     },
     {
