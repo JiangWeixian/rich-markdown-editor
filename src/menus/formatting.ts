@@ -60,13 +60,13 @@ export default function formattingMenuItems(
       icon: StrikethroughIcon,
       active: isMarkActive(schema.marks.strikethrough),
     },
-    // {
-    //   name: "highlight",
-    //   tooltip: dictionary.mark,
-    //   icon: HighlightIcon,
-    //   active: isMarkActive(schema.marks.highlight),
-    //   visible: !isTemplate,
-    // },
+    {
+      name: "highlight",
+      tooltip: dictionary.mark,
+      icon: HighlightIcon,
+      active: isMarkActive(schema.marks.highlight),
+      visible: !isTemplate,
+    },
     {
       name: "color",
       tooltip: 'color',
