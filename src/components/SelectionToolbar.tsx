@@ -168,6 +168,8 @@ export default class SelectionToolbar extends React.Component<Props> {
       return null;
     }
 
+    console.log(isNodeActive(state.schema.nodes.color)(state))
+
     return (
       <Portal>
         <FloatingToolbar view={view} active={isVisible(this.props)}>

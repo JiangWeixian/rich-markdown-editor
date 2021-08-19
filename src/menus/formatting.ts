@@ -71,8 +71,10 @@ export default function formattingMenuItems(
       name: "color",
       tooltip: 'color',
       icon: HighlightIcon,
+      attrs: { bg: "blue" },
       active: isNodeActive(schema.nodes.color),
-      visible: true// !isTemplate,
+      visible: true, // !isTemplate,
+      items: []
     },
     {
       name: "code_inline",

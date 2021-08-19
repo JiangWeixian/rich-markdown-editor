@@ -17,6 +17,8 @@ export type MenuItem = {
   attrs?: Record<string, any>;
   visible?: boolean;
   active?: (state: EditorState) => boolean;
+  // show extra nested panel
+  items?: MenuItem[]
 };
 
 export type EmbedDescriptor = MenuItem & {

@@ -23,6 +23,7 @@ class Menu extends React.Component<Props> {
     const { view, items } = this.props;
     const { state } = view;
     const Tooltip = this.props.tooltip;
+    console.log(Tooltip)
 
     return (
       <FlexibleWrapper>
@@ -39,9 +40,12 @@ class Menu extends React.Component<Props> {
           return (
             <ToolbarButton
               key={index}
-              onClick={() =>
-                item.name && this.props.commands[item.name](item.attrs)
-              }
+              onClick={() => {
+                if (item.items) {
+                  console.log('has extra items')
+                }
+                return item.name && this.props.commands[item.name](item.attrs)
+              }}
               active={isActive}
             >
               <Tooltip tooltip={item.tooltip} placement="top">

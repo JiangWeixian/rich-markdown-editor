@@ -1,6 +1,8 @@
-import { EditorState, TextSelection } from "prosemirror-state";
-import { replaceSelectedNode, replaceParentNodeOfType, findParentNodeOfType } from "prosemirror-utils";
-import toggleBlockType from "../commands/toggleBlockType";
+import { EditorState } from "prosemirror-state";
+import {
+  replaceParentNodeOfType,
+  findParentNodeOfType,
+} from "prosemirror-utils";
 import isNodeActive from "../queries/isNodeActive";
 import Node from "./Node";
 
@@ -71,7 +73,7 @@ export default class Color extends Node {
       const content = state.doc.slice(from, to)
       console.log(content, isInColor(state))
       if (!isNodeActive(schema.nodes.color)(state)) {
-        const node = type.create({ ...attrs, bg: 'red' }, content.content);
+        const node = type.create(attrs, content.content);
         const transaction = state.tr.replaceSelectionWith(node);
         dispatch(transaction);
         return true;
@@ -87,7 +89,7 @@ export default class Color extends Node {
           return true;
         } else {
           // TODO: maybe not need this one
-          const innode = type.create({ ...attrs, bg: 'red' }, content.content);
+          const innode = type.create(attrs, content.content);
           const intransaction = state.tr.replaceSelectionWith(innode);
           dispatch(intransaction);
           return true;
