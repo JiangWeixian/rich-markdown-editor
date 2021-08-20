@@ -45,7 +45,6 @@ class Menu extends React.Component<Props, State> {
 
   handleHover = (subItems: MenuItem[] = []) => {
     const rect = this.ref?.getBoundingClientRect();
-    console.log(this.ref, rect)
     this.setState({
       showSubItems: true,
       subItems,

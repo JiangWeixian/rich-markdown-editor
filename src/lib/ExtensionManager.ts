@@ -80,6 +80,8 @@ export default class ExtensionManager {
         };
       }, {});
 
+    console.log(schema)
+
     return new MarkdownParser(
       schema,
       makeRules({ embeds: this.embeds, rules }),

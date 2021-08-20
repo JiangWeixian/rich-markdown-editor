@@ -5,6 +5,7 @@ import {
   findParentNodeOfType,
   setParentNodeMarkup,
 } from "prosemirror-utils";
+import Mark from "../marks/Mark";
 import isNodeActive from "../queries/isNodeActive";
 import Node from "./Node";
 
@@ -25,7 +26,7 @@ function isInColor(state) {
 }
 
 
-export default class Color extends Node {
+export default class Color extends Mark {
   get name() {
     return "color";
   }
@@ -48,7 +49,7 @@ export default class Color extends Node {
         },
       ],
       toDOM: node => {
-        console.log(node)
+        console.log('toDom', node)
         return [
           "span",
           {
@@ -69,17 +70,19 @@ export default class Color extends Node {
 
   commands({ type, schema }) {
     return attrs => (state: EditorState, dispatch) => {
-      console.log(state)
       const { selection } = state;
       const from = selection.$from.pos;
       const to = selection.$to.pos;
       const content = state.doc.slice(from, to)
-      console.log(content, isInColor(state))
+      const colorNode = isInColor(state)
+      console.log(colorNode)
       if (!isNodeActive(schema.nodes.color)(state)) {
-        const node = type.create(attrs, content.content);
-        const transaction = state.tr.replaceSelectionWith(node);
-        dispatch(transaction);
-        return true;
+      
+        return toggleMark(type, attrs)(state, dispatch)
+        // const node = type.create(attrs, content.content);
+        // const transaction = state.tr.replaceSelectionWith(node);
+        // dispatch(transaction);
+        // return true;
       } else {
         const colorNode = isInColor(state)
         if (colorNode) {
@@ -112,7 +115,7 @@ export default class Color extends Node {
 
   parseMarkdown() {
     return {
-      block: "color",
+      mark: "color",
       getAttrs: tok => {
         const bg = tok.attrs[0][1].split(" ")[1]
         return {
