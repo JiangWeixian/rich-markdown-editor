@@ -13,6 +13,7 @@ type Props = {
   view: EditorView;
   children: React.ReactNode;
   forwardedRef?: React.RefObject<HTMLDivElement> | null;
+  noArrow?: boolean
 };
 
 const defaultPosition = {
@@ -167,6 +168,7 @@ function FloatingToolbar(props) {
         active={props.active && position.visible}
         ref={menuRef}
         offset={position.offset}
+        noArrow={props.nowArrow}
         style={{
           top: `${position.top}px`,
           left: `${position.left}px`,
@@ -178,9 +180,10 @@ function FloatingToolbar(props) {
   );
 }
 
-const Wrapper = styled.div<{
+export const Wrapper = styled.div<{
   active?: boolean;
   offset: number;
+  noArrow?: boolean
 }>`
   will-change: opacity, transform;
   padding: 8px 16px;
@@ -201,7 +204,7 @@ const Wrapper = styled.div<{
 
   &::before {
     content: "";
-    display: block;
+    display: ${props => props.noArrow ? 'none' : 'block'};
     width: 24px;
     height: 24px;
     transform: translateX(-50%) rotate(45deg);

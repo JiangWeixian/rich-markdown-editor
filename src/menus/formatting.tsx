@@ -10,6 +10,7 @@ import {
   InputIcon,
   HighlightIcon,
 } from "outline-icons";
+import React from 'react'
 import { isInTable } from "prosemirror-tables";
 import { EditorState } from "prosemirror-state";
 import { isCellSelection } from 'prosemirror-utils'
@@ -66,6 +67,24 @@ export default function formattingMenuItems(
       icon: HighlightIcon,
       active: isMarkActive(schema.marks.highlight),
       visible: !isTemplate,
+      items: [
+        {
+          name: "color",
+          tooltip: 'color',
+          icon: () => <span>blue</span>,
+          attrs: { bg: "blue" },
+          active: isNodeActive(schema.nodes.color),
+          visible: true, // !isTemplate,
+        },
+        {
+          name: "color",
+          tooltip: 'color',
+          icon: () => <span>red</span>,
+          attrs: { bg: "red" },
+          active: isNodeActive(schema.nodes.color),
+          visible: true, // !isTemplate,
+        },
+      ]
     },
     {
       name: "color",
@@ -74,7 +93,6 @@ export default function formattingMenuItems(
       attrs: { bg: "blue" },
       active: isNodeActive(schema.nodes.color),
       visible: true, // !isTemplate,
-      items: []
     },
     {
       name: "code_inline",

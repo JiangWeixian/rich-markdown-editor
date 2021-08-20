@@ -293,7 +293,6 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
     this.nodeViews = this.createNodeViews();
     this.view = this.createView();
     this.commands = this.createCommands();
-    console.log(this.commands)
   }
 
   createExtensions() {

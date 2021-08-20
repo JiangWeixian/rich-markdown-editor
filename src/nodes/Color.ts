@@ -1,7 +1,9 @@
+import { toggleMark } from "prosemirror-commands";
 import { EditorState } from "prosemirror-state";
 import {
   replaceParentNodeOfType,
   findParentNodeOfType,
+  setParentNodeMarkup,
 } from "prosemirror-utils";
 import isNodeActive from "../queries/isNodeActive";
 import Node from "./Node";
@@ -15,11 +17,11 @@ function isInColor(state) {
         $head.node(d).type.name
       )
     ) {
-      return true;
+      return $head.node(d);
     }
   }
 
-  return false;
+  return null;
 }
 
 
@@ -36,7 +38,7 @@ export default class Color extends Node {
         }
       },
       inline: true,
-      content: "text*",
+      content: "inline+",
       marks: "",
       group: "inline",
       selectable: true,
@@ -67,6 +69,7 @@ export default class Color extends Node {
 
   commands({ type, schema }) {
     return attrs => (state: EditorState, dispatch) => {
+      console.log(state)
       const { selection } = state;
       const from = selection.$from.pos;
       const to = selection.$to.pos;
@@ -78,20 +81,25 @@ export default class Color extends Node {
         dispatch(transaction);
         return true;
       } else {
-        if (isInColor(state)) {
-          const node = findParentNodeOfType(schema.nodes.color)(state.selection)
-          const transaction = replaceParentNodeOfType(
-            schema.nodes.color,
-            node?.node.content
-          )(state.tr); 
-          // state.tr.replaceSelectionWith(node) //state.tr.replaceSelection(content);
+        const colorNode = isInColor(state)
+        if (colorNode) {
+          // const node = findParentNodeOfType(schema.nodes.color)(state.selection)
+          // const transaction = replaceParentNodeOfType(
+          //   schema.nodes.color,
+          //   node?.node.content
+          // )(state.tr); 
+          // // state.tr.replaceSelectionWith(node) //state.tr.replaceSelection(content);
+          // dispatch(transaction);
+          // return true;
+          // console.log(selection.from, colorNode)
+          // const transaction = state.tr.setNodeMarkup(
+          //   selection.from,
+          //   type,
+          //   { bg: "yellow" }
+          // );
+          // dispatch(transaction);
+          const transaction = setParentNodeMarkup(schema.nodes.color, type, { bg: "yellow" })(state.tr)
           dispatch(transaction);
-          return true;
-        } else {
-          // TODO: maybe not need this one
-          const innode = type.create(attrs, content.content);
-          const intransaction = state.tr.replaceSelectionWith(innode);
-          dispatch(intransaction);
           return true;
         }
       }
