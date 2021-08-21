@@ -49,9 +49,9 @@ import Table from "./nodes/Table";
 import TableCell from "./nodes/TableCell";
 import TableHeadCell from "./nodes/TableHeadCell";
 import TableRow from "./nodes/TableRow";
-import Color from "./nodes/Color";
 
 // marks
+import Color from "./marks/Colorify";
 import Bold from "./marks/Bold";
 import Code from "./marks/Code";
 import Highlight from "./marks/Highlight";
@@ -1083,6 +1083,14 @@ const StyledEditor = styled("div")<{
     a:not(.heading-name) {
       text-decoration: underline;
     }
+  }
+
+  .colorify.red {
+    background-color: #F7E5E4;
+  }
+
+  .colorify.blue {
+    background-color: #E0EBF0;
   }
 
   .notice-block .content {

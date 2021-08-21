@@ -10,7 +10,7 @@ import {
   InputIcon,
   HighlightIcon,
 } from "outline-icons";
-import React from 'react'
+import React from "react";
 import { isInTable } from "prosemirror-tables";
 import { EditorState } from "prosemirror-state";
 import { isCellSelection } from 'prosemirror-utils'
@@ -20,6 +20,7 @@ import isNodeActive from "../queries/isNodeActive";
 import { MenuItem } from "../types";
 import baseDictionary from "../dictionary";
 import { MergeVertical } from '../components/Icons/MergeCell'
+import { ColorifyItem } from "../components/Colorify";
 
 export default function formattingMenuItems(
   state: EditorState,
@@ -70,30 +71,30 @@ export default function formattingMenuItems(
       items: [
         {
           name: "color",
-          tooltip: 'color',
-          icon: () => <span>blue</span>,
+          tooltip: 'blue',
+          icon: () => <ColorifyItem className="blue" />,
           attrs: { bg: "blue" },
           active: isNodeActive(schema.nodes.color),
           visible: true, // !isTemplate,
         },
         {
           name: "color",
-          tooltip: 'color',
-          icon: () => <span>red</span>,
+          tooltip: 'red',
+          icon: () => <ColorifyItem className="red" />,
           attrs: { bg: "red" },
           active: isNodeActive(schema.nodes.color),
           visible: true, // !isTemplate,
         },
       ]
     },
-    {
-      name: "color",
-      tooltip: 'color',
-      icon: HighlightIcon,
-      attrs: { bg: "blue" },
-      active: isNodeActive(schema.nodes.color),
-      visible: true, // !isTemplate,
-    },
+    // {
+    //   name: "color",
+    //   tooltip: 'color',
+    //   icon: HighlightIcon,
+    //   attrs: { bg: "blue" },
+    //   active: isNodeActive(schema.nodes.color),
+    //   visible: true, // !isTemplate,
+    // },
     {
       name: "code_inline",
       tooltip: dictionary.codeInline,

@@ -6,7 +6,7 @@ import ToolbarButton from "./ToolbarButton";
 import ToolbarSeparator from "./ToolbarSeparator";
 import theme from "../theme";
 import { MenuItem } from "../types";
-import FloatingToolbar, { Wrapper as FloatingToolbarWrapper } from "./FloatingToolbar";
+import { Wrapper as FloatingToolbarWrapper } from "./FloatingToolbar";
 
 type Props = {
   tooltip: typeof React.Component | React.FC<any>;
@@ -104,6 +104,13 @@ class Menu extends React.Component<Props, State> {
             }}
           >
             {this.state.subItems.map((item, index) => {
+              if (item.name === "separator" && item.visible !== false) {
+                return <ToolbarSeparator key={index} />;
+              }
+              if (item.visible === false || !item.icon) {
+                return null;
+              }
+              const Icon = item.icon;
               return (
                 <ToolbarButton
                   key={index}
@@ -115,7 +122,7 @@ class Menu extends React.Component<Props, State> {
                   active={false}
                 >
                   <Tooltip tooltip={item.tooltip} placement="top">
-                    {item.icon}
+                    <Icon />
                   </Tooltip>
                 </ToolbarButton>
               );
