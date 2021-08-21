@@ -66,7 +66,7 @@ export default function formattingMenuItems(
       name: "highlight",
       tooltip: dictionary.mark,
       icon: HighlightIcon,
-      active: isMarkActive(schema.marks.highlight),
+      active: isMarkActive(schema.marks.color),
       visible: !isTemplate,
       items: [
         {
@@ -74,7 +74,7 @@ export default function formattingMenuItems(
           tooltip: 'blue',
           icon: () => <ColorifyItem className="blue" />,
           attrs: { bg: "blue" },
-          active: isNodeActive(schema.nodes.color),
+          active: isMarkActive(schema.marks.color),
           visible: true, // !isTemplate,
         },
         {
@@ -82,7 +82,7 @@ export default function formattingMenuItems(
           tooltip: 'red',
           icon: () => <ColorifyItem className="red" />,
           attrs: { bg: "red" },
-          active: isNodeActive(schema.nodes.color),
+          active: isMarkActive(schema.marks.color),
           visible: true, // !isTemplate,
         },
       ]

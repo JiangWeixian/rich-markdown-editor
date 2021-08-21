@@ -1086,11 +1086,13 @@ const StyledEditor = styled("div")<{
   }
 
   .colorify.red {
-    background-color: #F7E5E4;
+    /* background-color: #F7E5E4; */
+    background-color: red;
   }
 
   .colorify.blue {
-    background-color: #E0EBF0;
+    /* background-color: #E0EBF0; */
+    background-color: blue;
   }
 
   .notice-block .content {

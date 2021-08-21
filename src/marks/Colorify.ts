@@ -14,6 +14,32 @@ function markApplies(doc, ranges, type) {
   return false
 }
 
+function colorAround(state, pos) {
+  const $pos = state.doc.resolve(pos);
+
+  const { parent, parentOffset } = $pos;
+  const start = parent.childAfter(parentOffset);
+  if (!start.node) return null;
+
+  const link = start.node.marks.find((mark) => mark.type === state.schema.marks.color);
+  if (!link) return null;
+
+  let startIndex = $pos.index();
+  let startPos = $pos.start() + start.offset;
+  let endIndex = startIndex + 1;
+  let endPos = startPos + start.node.nodeSize;
+  while (startIndex > 0 && link.isInSet(parent.child(startIndex - 1).marks)) {
+    startIndex -= 1;
+    startPos -= parent.child(startIndex).nodeSize;
+  }
+  while (endIndex < parent.childCount && link.isInSet(parent.child(endIndex).marks)) {
+    endPos += parent.child(endIndex).nodeSize;
+    endIndex += 1;
+  }
+  const mark = state.doc.nodeAt(startPos).marks.find(mark => mark.type === state.schema.marks.color)
+  return { from: startPos, to: endPos, mark };
+}
+
 export function switchMark(markType, attrs) {
   return function(state, dispatch) {
     let {empty, $cursor, ranges} = state.selection
@@ -38,7 +64,11 @@ export function switchMark(markType, attrs) {
             let spaceStart = start && start.isText ? /^\s*/.exec(start.text)[0].length : 0
             let spaceEnd = end && end.isText ? /\s*$/.exec(end.text)[0].length : 0
             if (from + spaceStart < to) { from += spaceStart; to -= spaceEnd }
-            tr.addMark(from, to, markType.create(attrs))
+            const activeMark = colorAround(state, $from.pos)
+            const isEqual = activeMark && activeMark.from === $from.pos && activeMark.to === $to.pos && activeMark.mark.attrs.bg === attrs.bg
+            if (!isEqual) {
+              tr.addMark(from, to, markType.create(attrs))
+            }
           } else {
             let from = $from.pos, to = $to.pos, start = $from.nodeAfter, end = $to.nodeBefore
             let spaceStart = start && start.isText ? /^\s*/.exec(start.text)[0].length : 0
@@ -78,7 +108,6 @@ export default class Colorify extends Mark {
         },
       ],
       toDOM: node => {
-        console.log('toDom', node)
         return [
           "span",
           {
