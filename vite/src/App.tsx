@@ -1,5 +1,6 @@
 import React from 'react'
 import RichMarkdownEditor from '../../src/index'
+import './App.css'
 
 const defaultValue = `# Welcome
 
