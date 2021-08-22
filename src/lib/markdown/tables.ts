@@ -60,9 +60,20 @@ export default function markdownTables(md: MarkdownIt) {
         // markdown-it table parser stores alignment as html styles, convert
         // to a simple string here
         const tokenAttrs = tokens[i].attrs;
-        if (tokenAttrs) {
-          const style = tokenAttrs[0][1];
-          tokens[i].info = style.split(":")[1];
+        if (tokenAttrs && tokenAttrs.length) {
+          const [attrName, attrValue] = tokenAttrs[0]
+          console.log('table', attrName)
+          switch (attrName) {
+            case 'style':
+              tokens[i].info = attrValue.split(":")[1];
+              break;
+          
+            case 'colspan':
+              tokens[i].meta = Object.assign({}, tokens[i].meta || {}, { colspan: attrValue })
+              break;
+            default:
+              break;
+          }
         }
       }
 

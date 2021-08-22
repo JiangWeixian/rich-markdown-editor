@@ -17,6 +17,7 @@ import isMarkActive from "../queries/isMarkActive";
 import isNodeActive from "../queries/isNodeActive";
 import { MenuItem } from "../types";
 import baseDictionary from "../dictionary";
+import { MergeVertical } from '../components/Icons/MergeCell'
 
 export default function formattingMenuItems(
   state: EditorState,
@@ -98,6 +99,12 @@ export default function formattingMenuItems(
       active: isNodeActive(schema.nodes.blockquote),
       attrs: { level: 2 },
       visible: allowBlocks,
+    },
+    {
+      name: "mergeCells",
+      tooltip: dictionary.deleteColumn,
+      icon: MergeVertical,
+      active: () => false,
     },
     {
       name: "separator",

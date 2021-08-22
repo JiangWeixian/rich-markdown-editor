@@ -319,7 +319,7 @@ export class MarkdownSerializerState {
 
       // cols
       row.forEach((cell, _, j) => {
-        this.out += j === 0 ? "| " : " | ";
+        this.out += "| " //j === 0 ? "| " : " | ";
 
         cell.forEach(para => {
           // just padding the output so that empty cells take up the same space
@@ -333,6 +333,9 @@ export class MarkdownSerializerState {
             this.render(para, row, j);
           }
         });
+        if (cell.attrs.colspan > 1) {
+          this.out += "|"
+        }
 
         if (i === 0) {
           if (cell.attrs.alignment === "center") {

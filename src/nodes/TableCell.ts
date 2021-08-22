@@ -19,11 +19,19 @@ export default class TableCell extends Node {
       isolating: true,
       parseDOM: [{ tag: "td" }],
       toDOM(node) {
-        return [
-          "td",
+        const attrs = Object.assign(
+          {},
           node.attrs.alignment
             ? { style: `text-align: ${node.attrs.alignment}` }
             : {},
+          node.attrs.colspan
+            ? { colspan: node.attrs.colspan }
+            : {},
+
+        )
+        return [
+          "td",
+          attrs,
           0,
         ];
       },
@@ -42,7 +50,10 @@ export default class TableCell extends Node {
   parseMarkdown() {
     return {
       block: "td",
-      getAttrs: tok => ({ alignment: tok.info }),
+      getAttrs: tok => {
+        console.log(tok)
+        return { alignment: tok.info, colspan: tok.meta?.colspan }
+      },
     };
   }
 

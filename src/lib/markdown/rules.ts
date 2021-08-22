@@ -7,6 +7,8 @@ import tablesPlugin from "./tables";
 import noticesPlugin from "./notices";
 import underlinesPlugin from "./underlines";
 
+import multimdTablePlugin from "./multimdTable";
+
 export default function rules({ embeds, rules = {} }) {
   return markdownit("default", {
     breaks: false,
@@ -20,6 +22,9 @@ export default function rules({ embeds, rules = {} }) {
     .use(markPlugin({ delim: "==", mark: "highlight" }))
     .use(markPlugin({ delim: "!!", mark: "placeholder" }))
     .use(underlinesPlugin)
+    .use(multimdTablePlugin, {
+      rowspan: true
+    })
     .use(tablesPlugin)
     .use(noticesPlugin);
 }
