@@ -317,9 +317,11 @@ export class MarkdownSerializerState {
         headerBuffer = undefined;
       }
 
+      
       // cols
       row.forEach((cell, _, j) => {
         this.out += "| " //j === 0 ? "| " : " | ";
+        console.log(cell)
 
         cell.forEach(para => {
           // just padding the output so that empty cells take up the same space
@@ -333,6 +335,8 @@ export class MarkdownSerializerState {
             this.render(para, row, j);
           }
         });
+
+        // support colspan > 1
         if (cell.attrs.colspan > 1) {
           this.out += "|"
         }

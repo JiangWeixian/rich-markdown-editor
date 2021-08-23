@@ -24,10 +24,12 @@ export default class TableCell extends Node {
           node.attrs.alignment
             ? { style: `text-align: ${node.attrs.alignment}` }
             : {},
-          node.attrs.colspan
+          node.attrs.colspan > 1
             ? { colspan: node.attrs.colspan }
             : {},
-
+          node.attrs.rowspan > 1
+            ? { rowspan: node.attrs.rowspan }
+            : {},
         )
         return [
           "td",
@@ -52,7 +54,7 @@ export default class TableCell extends Node {
       block: "td",
       getAttrs: tok => {
         console.log(tok)
-        return { alignment: tok.info, colspan: tok.meta?.colspan }
+        return { alignment: tok.info, colspan: tok.meta?.colspan, rowspan: tok.meta?.rowspan }
       },
     };
   }

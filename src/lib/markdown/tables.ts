@@ -71,6 +71,10 @@ export default function markdownTables(md: MarkdownIt) {
             case 'colspan':
               tokens[i].meta = Object.assign({}, tokens[i].meta || {}, { colspan: attrValue })
               break;
+
+            case 'rowspan':
+              tokens[i].meta = Object.assign({}, tokens[i].meta || {}, { rowspan: attrValue })
+              break;
             default:
               break;
           }
