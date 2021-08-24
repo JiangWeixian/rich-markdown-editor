@@ -306,9 +306,47 @@ export class MarkdownSerializerState {
     let headerBuffer = "";
     const prevTable = this.inTable;
     this.inTable = true;
+    const fakeCols = {}
+
+    let maxRows = node.childCount;
+    let maxCols = 0
+    node.forEach((row) => {
+      let cols = 0
+      row.forEach((cell) => {
+        cols += cell.attrs.colspan
+      })
+      maxCols = Math.max(maxCols, cols)
+    })
+
+    const fakeTable = []
+    for (let i = 0; i < maxRows; i++) {
+      fakeTable.push(new Array(maxCols).fill("{{}}"))
+    }
+    node.forEach((row, _, i) => {
+      row.forEach((cell, _, j) => {
+        if (cell.attrs.colspan > 1) {
+          new Array(cell.attrs.colspan - 1)
+            .fill(0)
+            .forEach((_, index) => {
+              fakeTable[i][j + index + 1] = ""
+            })
+        }
+        if (cell.attrs.rowspan > 1) {
+          new Array(cell.attrs.rowspan - 1)
+            .fill(0)
+            .forEach((_, index) => {
+              fakeTable[i + index + 1][j] = "^^"
+            })
+        }
+        console.log(i, j, cell, fakeTable[i][j])
+      })
+    })
+    console.log(fakeTable)
 
     // ensure there is an empty newline above all tables
     this.out += "\n";
+
+    let fakeJ = 0
 
     // rows
     node.forEach((row, _, i) => {
@@ -317,11 +355,23 @@ export class MarkdownSerializerState {
         headerBuffer = undefined;
       }
 
+      fakeJ = -1
       
       // cols
       row.forEach((cell, _, j) => {
         this.out += "| " //j === 0 ? "| " : " | ";
-        console.log(cell)
+        
+        fakeJ += 1
+        while (fakeTable[i][fakeJ] !== "{{}}" && fakeJ < maxCols) {
+          console.log(i, fakeJ)
+          if (fakeTable[i][fakeJ] === "^^") {
+            this.out += "^^|"
+          }
+          if (fakeTable[i][fakeJ] === "") {
+            this.out += "|"
+          }
+          fakeJ += 1
+        }
 
         cell.forEach(para => {
           // just padding the output so that empty cells take up the same space
@@ -336,9 +386,15 @@ export class MarkdownSerializerState {
           }
         });
 
-        // support colspan > 1
-        if (cell.attrs.colspan > 1) {
-          this.out += "|"
+        while (j === row.childCount - 1 && fakeJ < maxCols) {
+          console.log(i, fakeJ)
+          if (fakeTable[i][fakeJ] === "^^") {
+            this.out += "|^^"
+          }
+          if (fakeTable[i][fakeJ] === "") {
+            this.out += "|"
+          }
+          fakeJ += 1
         }
 
         if (i === 0) {

@@ -61,22 +61,24 @@ export default function markdownTables(md: MarkdownIt) {
         // to a simple string here
         const tokenAttrs = tokens[i].attrs;
         if (tokenAttrs && tokenAttrs.length) {
-          const [attrName, attrValue] = tokenAttrs[0]
-          console.log('table', attrName)
-          switch (attrName) {
-            case 'style':
-              tokens[i].info = attrValue.split(":")[1];
-              break;
-          
-            case 'colspan':
-              tokens[i].meta = Object.assign({}, tokens[i].meta || {}, { colspan: attrValue })
-              break;
-
-            case 'rowspan':
-              tokens[i].meta = Object.assign({}, tokens[i].meta || {}, { rowspan: attrValue })
-              break;
-            default:
-              break;
+          for (const attr of tokenAttrs) {
+            const [attrName, attrValue] = attr
+            console.log('table', attrName)
+            switch (attrName) {
+              case 'style':
+                tokens[i].info = attrValue.split(":")[1];
+                break;
+            
+              case 'colspan':
+                tokens[i].meta = Object.assign({}, tokens[i].meta || {}, { colspan: attrValue })
+                break;
+  
+              case 'rowspan':
+                tokens[i].meta = Object.assign({}, tokens[i].meta || {}, { rowspan: attrValue })
+                break;
+              default:
+                break;
+            }
           }
         }
       }

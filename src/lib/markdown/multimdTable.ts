@@ -341,7 +341,6 @@ export default function multimd_table_plugin(md, options) {
       trToken = tableToken.meta.tr[r];
       // console.log(trToken.meta); // for test
       if (trToken.meta.grp & 0x10) {
-        // TODO:
         tag = (trToken.meta.type === 0x00100) ? 'thead' : 'tbody';
         token     = state.push(tag + '_open', tag, 1);
         token.map = tgroupLines = [ trToken.map[0], 0 ];  // array ref
@@ -359,7 +358,6 @@ export default function multimd_table_plugin(md, options) {
         if (text === '') {
           colspan = leftToken.attrGet('colspan');
           leftToken.attrSet('colspan', colspan === null ? 2 : colspan + 1);
-          console.log(leftToken)
           continue;
         }
         if (options.rowspan && upTokens[c] && text.trim() === '^^') {
@@ -403,7 +401,6 @@ export default function multimd_table_plugin(md, options) {
       /* Push in tr and thead/tbody closed tokens */
       state.push('tr_close', 'tr', -1);
       if (trToken.meta.grp & 0x01) {
-        // TODO:
         tag = (trToken.meta.type === 0x00100) ? 'thead' : 'tbody';
         token = state.push(tag + '_close', tag, -1);
         tgroupLines[1] = trToken.map[1];
@@ -411,7 +408,6 @@ export default function multimd_table_plugin(md, options) {
     }
 
     tableLines[1] = Math.max(
-      // TODO:
       tgroupLines[1],
       tableToken.meta.sep.map[1],
       tableToken.meta.cap ? tableToken.meta.cap.map[1] : -1
