@@ -53,7 +53,6 @@ export default class TableCell extends Node {
     return {
       block: "td",
       getAttrs: tok => {
-        console.log(tok)
         return { alignment: tok.info, colspan: tok.meta?.colspan, rowspan: tok.meta?.rowspan }
       },
     };
@@ -109,7 +108,6 @@ export default class TableCell extends Node {
                     grip.className = className;
                     grip.addEventListener("mousedown", event => {
                       event.preventDefault();
-                      console.log('rowSelected', index, offset, node)
                       this.options.onSelectRow(i, state);
                     });
                     return grip;

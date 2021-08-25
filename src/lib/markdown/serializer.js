@@ -340,13 +340,11 @@ export class MarkdownSerializerState {
                 fakeJ += 1
               }
               fakeJ += 1
-              console.log(i, fakeJ)
               fakeTable[i][fakeJ] = ""
             })
         }
       })
     })
-    console.log(fakeTable)
 
     // ensure there is an empty newline above all tables
     this.out += "\n";

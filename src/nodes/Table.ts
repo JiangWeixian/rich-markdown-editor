@@ -76,7 +76,6 @@ export default class Table extends Node {
       addColumnAfter: () => addColumnAfter,
       deleteColumn: () => deleteColumn,
       addRowAfter: ({ index }) => (state, dispatch) => {
-        console.log(index)
         if (index === 0) {
           // A little hack to avoid cloning the heading row by cloning the row
           // beneath and then moving it to the right index.

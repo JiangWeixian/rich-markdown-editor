@@ -80,12 +80,6 @@ export default class ExtensionManager {
         };
       }, {});
 
-    console.log(new MarkdownParser(
-      schema,
-      makeRules({ embeds: this.embeds, rules }),
-      tokens
-    ))
-
     return new MarkdownParser(
       schema,
       makeRules({ embeds: this.embeds, rules }),

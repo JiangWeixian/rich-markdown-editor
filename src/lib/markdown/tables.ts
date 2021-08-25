@@ -63,7 +63,6 @@ export default function markdownTables(md: MarkdownIt) {
         if (tokenAttrs && tokenAttrs.length) {
           for (const attr of tokenAttrs) {
             const [attrName, attrValue] = attr
-            console.log('table', attrName)
             switch (attrName) {
               case 'style':
                 tokens[i].info = attrValue.split(":")[1];
