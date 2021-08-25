@@ -6,8 +6,7 @@ import breakPlugin from "./breaks";
 import tablesPlugin from "./tables";
 import noticesPlugin from "./notices";
 import underlinesPlugin from "./underlines";
-
-import multimdTablePlugin from "./multimdTable";
+import multimdTablePlugin from "markdown-it-multimd-table";
 
 export default function rules({ embeds, rules = {} }) {
   return markdownit("default", {
