@@ -68,8 +68,13 @@ export default class TableCell extends Node {
             const decorations: Decoration[] = [];
             const cells = getCellsInColumn(0)(selection);
 
+            let offset = 0
+
             if (cells) {
-              cells.forEach(({ pos }, index) => {
+              cells.forEach(({ pos, node }, index) => {
+                if (node.attrs.rowspan > 1) {
+                  offset += node.attrs.rowspan - 1
+                }
                 if (index === 0) {
                   decorations.push(
                     Decoration.widget(pos + 1, () => {
@@ -90,22 +95,24 @@ export default class TableCell extends Node {
                 }
                 decorations.push(
                   Decoration.widget(pos + 1, () => {
-                    const rowSelected = isRowSelected(index)(selection);
-
+                    const i = index + offset
+                    const rowSelected = isRowSelected(i)(selection);
+                    
                     let className = "grip-row";
                     if (rowSelected) {
                       className += " selected";
                     }
-                    if (index === 0) {
+                    if (i === 0) {
                       className += " first";
-                    } else if (index === cells.length - 1) {
+                    } else if (i === cells.length - 1) {
                       className += " last";
                     }
                     const grip = document.createElement("a");
                     grip.className = className;
                     grip.addEventListener("mousedown", event => {
                       event.preventDefault();
-                      this.options.onSelectRow(index, state);
+                      console.log('rowSelected', index, offset, node)
+                      this.options.onSelectRow(i, state);
                     });
                     return grip;
                   })

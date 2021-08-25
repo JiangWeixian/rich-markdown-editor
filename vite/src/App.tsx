@@ -49,7 +49,7 @@ const defaultValue = `# Tables
 
 Simple tables with alignment and row/col editing are supported, they can be inserted from the slash menu
 
-${fixtures[3]}
+${fixtures[2]}
 `
 
 function App() {
