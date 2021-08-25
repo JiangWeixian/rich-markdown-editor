@@ -83,7 +83,7 @@ export default class Table extends Node {
           const tr = addRowAt(index + 2, true)(state.tr);
           dispatch(moveRow(index + 2, index + 1)(tr));
         } else {
-          dispatch(addRowAt(index + 1, true)(state.tr));
+          dispatch(addRowAt(index + 1)(state.tr));
         }
       },
       deleteRow: () => deleteRow,

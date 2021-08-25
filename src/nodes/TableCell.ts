@@ -68,13 +68,11 @@ export default class TableCell extends Node {
             const decorations: Decoration[] = [];
             const cells = getCellsInColumn(0)(selection);
 
-            let offset = 0
+            const offset: number[] = []
 
             if (cells) {
               cells.forEach(({ pos, node }, index) => {
-                if (node.attrs.rowspan > 1) {
-                  offset += node.attrs.rowspan - 1
-                }
+                offset.push(node.attrs.rowspan - 1);
                 if (index === 0) {
                   decorations.push(
                     Decoration.widget(pos + 1, () => {
@@ -95,7 +93,7 @@ export default class TableCell extends Node {
                 }
                 decorations.push(
                   Decoration.widget(pos + 1, () => {
-                    const i = index + offset
+                    const i = index + offset.slice(0, index).reduce((acc, cur) => acc + cur, 0)
                     const rowSelected = isRowSelected(i)(selection);
                     
                     let className = "grip-row";
