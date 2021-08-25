@@ -324,13 +324,6 @@ export class MarkdownSerializerState {
     }
     node.forEach((row, _, i) => {
       row.forEach((cell, _, j) => {
-        if (cell.attrs.colspan > 1) {
-          new Array(cell.attrs.colspan - 1)
-            .fill(0)
-            .forEach((_, index) => {
-              fakeTable[i][j + index + 1] = ""
-            })
-        }
         if (cell.attrs.rowspan > 1) {
           new Array(cell.attrs.rowspan - 1)
             .fill(0)
@@ -338,7 +331,19 @@ export class MarkdownSerializerState {
               fakeTable[i + index + 1][j] = "^^"
             })
         }
-        console.log(i, j, cell, fakeTable[i][j])
+        let fakeJ = j
+        if (cell.attrs.colspan > 1) {
+          new Array(cell.attrs.colspan - 1)
+            .fill(0)
+            .forEach(() => {
+              while (fakeTable[i][fakeJ] === "^^") {
+                fakeJ += 1
+              }
+              fakeJ += 1
+              console.log(i, fakeJ)
+              fakeTable[i][fakeJ] = ""
+            })
+        }
       })
     })
     console.log(fakeTable)
@@ -363,7 +368,6 @@ export class MarkdownSerializerState {
         
         fakeJ += 1
         while (fakeTable[i][fakeJ] !== "{{}}" && fakeJ < maxCols) {
-          console.log(i, fakeJ)
           if (fakeTable[i][fakeJ] === "^^") {
             this.out += "^^|"
           }
@@ -387,7 +391,6 @@ export class MarkdownSerializerState {
         });
 
         while (j === row.childCount - 1 && fakeJ < maxCols) {
-          console.log(i, fakeJ)
           if (fakeTable[i][fakeJ] === "^^") {
             this.out += "|^^"
           }
@@ -410,7 +413,7 @@ export class MarkdownSerializerState {
         }
       });
 
-      this.out += " |\n";
+      this.out += "|\n";
     });
 
     this.inTable = prevTable;

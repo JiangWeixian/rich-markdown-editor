@@ -7,7 +7,7 @@ const fixtures = [
 Stage | Direct Products | ATP Yields
 ----: | --------------: | ---------:
 Glycolysis | 2 ATP ||
-^^ | 2 NADH | 3--5 ATP |
+^^ | 2 NADH 3--5 ATP ||
 Pyruvaye oxidation | 2 NADH | 5 ATP |
 Citric acid cycle | 2 ATP ||
 ^^ | 6 NADH | 15 ATP |
@@ -49,7 +49,7 @@ const defaultValue = `# Tables
 
 Simple tables with alignment and row/col editing are supported, they can be inserted from the slash menu
 
-${fixtures[0]}
+${fixtures[3]}
 `
 
 function App() {
