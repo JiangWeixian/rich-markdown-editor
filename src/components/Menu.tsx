@@ -21,33 +21,29 @@ const FlexibleWrapper = styled.div`
   position: relative;
 `;
 
-const SubFlexibleWrapper = styled.div`
-  display: flex;
-  position: absolute;
-  top: -40px;
-  left: 0px;
-`;
-
 type State = {
   subItems: MenuItem[]
   showSubItems: boolean
   subItemsPositions: Record<string, number>
+  selectedIndex: number
 }
 
 class Menu extends React.Component<Props, State> {
   state: State = {
     subItems: [],
     showSubItems: false,
-    subItemsPositions: {}
+    subItemsPositions: {},
+    selectedIndex: 0
   }
 
   ref: HTMLDivElement | null
 
-  handleHover = (subItems: MenuItem[] = []) => {
+  handleHover = (index: number, subItems: MenuItem[] = []) => {
     const rect = this.ref?.getBoundingClientRect();
     this.setState({
       showSubItems: true,
       subItems,
+      selectedIndex: index,
       subItemsPositions: {
         top: rect?.top || 0,
         left: rect?.left || 0
@@ -76,10 +72,7 @@ class Menu extends React.Component<Props, State> {
             <ToolbarButton
               key={index}
               onMouseEnter={() => {
-                // TODO: should not detect item.items
-                if (item.items) {
-                  this.handleHover(item.items)
-                }
+                this.handleHover(index, item.items);
               }}
               onClick={() => {
                 return item.name && this.props.commands[item.name](item.attrs)
@@ -93,13 +86,13 @@ class Menu extends React.Component<Props, State> {
           );
         })}
         <Portal>
-          <FloatingToolbarWrapper
+        {this.state.subItems.length && <FloatingToolbarWrapper
             active={this.state.showSubItems}
             offset={0}
             noArrow={true}
             style={{
               top: `${(this.state.subItemsPositions.top || 0) - 50}px`,
-              // TODO: left related to hover index
+              // TODO: selected index
               left: `${(this.state.subItemsPositions.left || 0) + 4 * 24}px`,
             }}
           >
@@ -127,34 +120,8 @@ class Menu extends React.Component<Props, State> {
                 </ToolbarButton>
               );
             })}
-          </FloatingToolbarWrapper>
+          </FloatingToolbarWrapper>}
         </Portal>
-        {/* <FloatingToolbar
-          view={this.props.view}
-          active={this.state.showSubItems}
-          offset={{
-            top: -40,
-            left: 0
-          }}
-        >
-          {this.state.subItems.map((item, index) => {
-            return (
-              <ToolbarButton
-                key={index}
-                onClick={() => {
-                  return (
-                    item.name && this.props.commands[item.name](item.attrs)
-                  );
-                }}
-                active={false}
-              >
-                <Tooltip tooltip={item.tooltip} placement="top">
-                  {item.name}
-                </Tooltip>
-              </ToolbarButton>
-            );
-          })}
-        </FloatingToolbar> */}
       </FlexibleWrapper>
     );
   }

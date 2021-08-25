@@ -71,11 +71,11 @@ export default function formattingMenuItems(
       items: [
         {
           name: "color",
-          tooltip: 'blue',
-          icon: () => <ColorifyItem className="blue" />,
-          attrs: { bg: "blue" },
+          tooltip: 'yellow',
+          icon: () => <ColorifyItem className="yellow" />,
+          attrs: { bg: "yellow" },
           active: isMarkActive(schema.marks.color),
-          visible: true, // !isTemplate,
+          visible: !isTemplate,
         },
         {
           name: "color",
@@ -83,7 +83,15 @@ export default function formattingMenuItems(
           icon: () => <ColorifyItem className="red" />,
           attrs: { bg: "red" },
           active: isMarkActive(schema.marks.color),
-          visible: true, // !isTemplate,
+          visible: !isTemplate,
+        },
+        {
+          name: "color",
+          tooltip: 'green',
+          icon: () => <ColorifyItem className="green" />,
+          attrs: { bg: "green" },
+          active: isMarkActive(schema.marks.color),
+          visible: !isTemplate,
         },
       ]
     },

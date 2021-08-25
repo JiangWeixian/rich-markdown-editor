@@ -8,11 +8,15 @@ const Item = styled.span`
   display: inline-block;
   align-self: center;
   &.red {
-    background-color: #F7E5E4;
+    background-color: #FBBFBC;
   }
 
-  &.blue {
-    background-color: #E0EBF0;
+  &.yellow {
+    background-color: #FFF895;
+  }
+
+  &.green {
+    background-color: #C5F1C1;
   }
 `
 

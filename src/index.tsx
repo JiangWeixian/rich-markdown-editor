@@ -1086,15 +1086,17 @@ const StyledEditor = styled("div")<{
   }
 
   .colorify.red {
-    /* background-color: #F7E5E4; */
-    background-color: red;
+    background-color: #FBBFBC;
   }
 
-  .colorify.blue {
-    /* background-color: #E0EBF0; */
-    background-color: blue;
+  .colorify.yellow {
+    background-color: #FFF895;
   }
 
+  .colorify.green {
+    background-color: #C5F1C1;
+  }
+  
   .notice-block .content {
     flex-grow: 1;
   }
