@@ -81,11 +81,10 @@ Blockquotes.args = {
 export const Tables = Template.bind({});
 Tables.args = {
   defaultValue: `
-|   |   |   |
+| | | |
 |----|----|----|
-|   |   |   |
-|   |   |   |
-  
+| | |  |
+|^^|^^|   |
 `,
 };
 

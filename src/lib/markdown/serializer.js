@@ -327,7 +327,9 @@ export class MarkdownSerializerState {
           new Array(cell.attrs.rowspan - 1)
             .fill(0)
             .forEach((_, index) => {
-              fakeTable[i + index + 1][j] = "^^"
+              for (let _j = 0; _j < cell.attrs.colspan; _j++) {
+                fakeTable[i + index + 1][j + _j] = "^^";
+              }
             })
         }
         let fakeJ = j
@@ -345,6 +347,7 @@ export class MarkdownSerializerState {
       })
     })
 
+
     // ensure there is an empty newline above all tables
     this.out += "\n";
 
@@ -361,7 +364,7 @@ export class MarkdownSerializerState {
       
       // cols
       row.forEach((cell, _, j) => {
-        this.out += "| " //j === 0 ? "| " : " | ";
+        this.out += "|" //j === 0 ? "| " : " | ";
         
         fakeJ += 1
         while (fakeTable[i][fakeJ] !== "{{}}" && fakeJ < maxCols) {
@@ -374,8 +377,6 @@ export class MarkdownSerializerState {
           fakeJ += 1
         }
         
-        console.log(cell)
-
         cell.forEach(para => {
           // just padding the output so that empty cells take up the same space
           // as headings.
@@ -412,7 +413,9 @@ export class MarkdownSerializerState {
         }
       });
 
-      this.out += "|\n";
+      if (fakeJ !== -1) {
+        this.out += "|\n";
+      }
     });
 
     this.inTable = prevTable;
