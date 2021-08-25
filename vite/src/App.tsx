@@ -3,11 +3,10 @@ import './App.css'
 import RichMarkdownEditor from '../../src'
 
 const defaultValue = `
-Stage | Direct Products | ATP Yields
-----: | --------------: | ---------:
-| | |
-| | |
-| | |
+|   |   |   |
+|----|----|----|
+|   |   |   |
+|   |   |   |
 `
 
 function App() {

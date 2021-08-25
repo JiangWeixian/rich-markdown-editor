@@ -126,7 +126,7 @@ export default class Colorify extends Mark {
   }
 
   commands({ type }) {
-    return attrs => (state: EditorState, dispatch) => {
+    return attrs => (state, dispatch) => {
       return switchMark(type, attrs)(state, dispatch)
     };
   }

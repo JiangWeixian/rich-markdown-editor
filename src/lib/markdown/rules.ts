@@ -26,6 +26,6 @@ export default function rules({ embeds, rules = {} }) {
       rowspan: true
     })
     .use(tablesPlugin)
-    .use(colorPlugin)
+    // .use(colorPlugin)
     .use(noticesPlugin);
 }

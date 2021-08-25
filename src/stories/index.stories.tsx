@@ -80,15 +80,12 @@ Blockquotes.args = {
 
 export const Tables = Template.bind({});
 Tables.args = {
-  defaultValue: `# Tables
-
-Simple tables with alignment and row/col editing are supported, they can be inserted from the slash menu
-
-| Editor      | Rank | React | Collaborative |
-|-------------|------|-------|--------------:|
-| Prosemirror | A    |   No  |           Yes |
-| Slate       | B    |  Yes  |            No |
-| CKEdit      | C    |   No  |           Yes |
+  defaultValue: `
+|   |   |   |
+|----|----|----|
+|   |   |   |
+|   |   |   |
+  
 `,
 };
 

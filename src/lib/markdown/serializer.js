@@ -306,7 +306,6 @@ export class MarkdownSerializerState {
     let headerBuffer = "";
     const prevTable = this.inTable;
     this.inTable = true;
-    const fakeCols = {}
 
     let maxRows = node.childCount;
     let maxCols = 0
@@ -374,6 +373,8 @@ export class MarkdownSerializerState {
           }
           fakeJ += 1
         }
+        
+        console.log(cell)
 
         cell.forEach(para => {
           // just padding the output so that empty cells take up the same space
