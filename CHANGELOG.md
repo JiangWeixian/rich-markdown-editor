@@ -1,5 +1,11 @@
 # @jiangweixian1994/rich-markdown-editor
 
+## 0.1.2
+
+### Patch Changes
+
+- merge cell bad case
+
 ## 0.1.1
 
 ### Patch Changes
