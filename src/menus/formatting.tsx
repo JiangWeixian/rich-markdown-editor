@@ -95,14 +95,6 @@ export default function formattingMenuItems(
         },
       ]
     },
-    // {
-    //   name: "color",
-    //   tooltip: 'color',
-    //   icon: HighlightIcon,
-    //   attrs: { bg: "blue" },
-    //   active: isNodeActive(schema.nodes.color),
-    //   visible: true, // !isTemplate,
-    // },
     {
       name: "code_inline",
       tooltip: dictionary.codeInline,

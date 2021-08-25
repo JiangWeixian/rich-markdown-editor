@@ -116,10 +116,7 @@ export default function Example(props) {
               );
             }, Math.random() * 500);
           });
-        }}
-        onChange={(v) => {
-          console.log(v())
-        }}
+        }}    
         uploadImage={file => {
           console.log("File upload triggered: ", file);
 
