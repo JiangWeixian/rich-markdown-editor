@@ -33,12 +33,22 @@ const StyledMergeVertical = styled.i`
     right: 5px;
   }
 `
+
+const Wrapper = styled.span`
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+`
+
 export const MergeVertical = React.forwardRef<HTMLElement, React.HTMLAttributes<HTMLElement>>(
   (props, ref) => {
     return (
-      <>
+      <Wrapper>
         <StyledMergeVertical {...props} ref={ref} icon-role="merge-vertical" />
-      </>
+      </Wrapper>
     )
   },
 )

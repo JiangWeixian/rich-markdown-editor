@@ -12,6 +12,7 @@ import {
 } from "outline-icons";
 import { isInTable } from "prosemirror-tables";
 import { EditorState } from "prosemirror-state";
+import { isCellSelection } from 'prosemirror-utils'
 import isInList from "../queries/isInList";
 import isMarkActive from "../queries/isMarkActive";
 import isNodeActive from "../queries/isNodeActive";
@@ -104,7 +105,8 @@ export default function formattingMenuItems(
       name: "mergeCells",
       tooltip: dictionary.deleteColumn,
       icon: MergeVertical,
-      active: () => false,
+      active: () => isCellSelection(state.selection),
+      visible: isTable,
     },
     {
       name: "separator",
