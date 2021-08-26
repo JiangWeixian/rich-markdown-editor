@@ -119,10 +119,15 @@ export default class Colorify extends Mark {
     };
   }
 
-  toMarkdown(state, node) {
-    state.write(`{${node.attrs.bg}}(`);
-    state.renderContent(node);
-    state.write(`)`)
+  get toMarkdown() {
+    return {
+      open(_state, mark, parent, index) {
+        return '{' + mark.attrs.bg + '}' + '(';
+      },
+      close(state, mark, parent, index) {
+        return ')'
+      },
+    }
   }
 
   commands({ type }) {
