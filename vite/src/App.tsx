@@ -50,6 +50,7 @@ C | 2 FADH2 | 3 ATP |
 |^^|6 NADH15 ATP2 FADH23 ATP||
 |**30--32** ATP|||
 
+
 `
 
 function App() {

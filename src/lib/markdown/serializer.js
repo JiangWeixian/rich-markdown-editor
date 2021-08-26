@@ -327,8 +327,9 @@ export class MarkdownSerializerState {
           new Array(cell.attrs.rowspan - 1)
             .fill(0)
             .forEach((_, index) => {
-              for (let _j = 0; _j < cell.attrs.colspan; _j++) {
-                fakeTable[i + index + 1][j + _j] = "^^";
+              fakeTable[i + index + 1][j] = "^^";
+              for (let _j = 1; _j < cell.attrs.colspan; _j++) {
+                fakeTable[i + index + 1][j + _j] = "";
               }
             })
         }
