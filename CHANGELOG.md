@@ -1,5 +1,17 @@
 # @jiangweixian1994/rich-markdown-editor
 
+## 0.2.6
+
+### Patch Changes
+
+- cellselection check before cellcount
+
+## 0.2.5
+
+### Patch Changes
+
+- state selection undefined
+
 ## 0.2.4
 
 ### Patch Changes

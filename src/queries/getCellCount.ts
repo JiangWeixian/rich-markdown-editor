@@ -3,9 +3,7 @@ import { selectedRect } from 'prosemirror-tables'
 
 export default function getCellCount (state: EditorState) {
   return {
-    total: state.selection
-      ? selectedRect(state).map.cellsInRect(selectedRect(state)).length
-      : 0,
+    total: selectedRect(state).map.cellsInRect(selectedRect(state)).length,
     // TODO: count td/th count
     // th: thCount,
     // td: tdCount,

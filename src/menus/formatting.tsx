@@ -32,7 +32,8 @@ export default function formattingMenuItems(
   const { schema } = state;
   const isTable = isInTable(state);
   const isList = isInList(state);
-  const isSingle = getCellCount(state).total === 1
+  const isSingle =
+    isCellSelection(state.selection) && getCellCount(state).total === 1;
   const allowBlocks = !isTable && !isList;
 
   return [
