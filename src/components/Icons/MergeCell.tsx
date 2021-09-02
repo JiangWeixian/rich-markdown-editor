@@ -1,6 +1,6 @@
-import React from 'react'
-import styled from 'styled-components'
-import Icon from './Icon'
+import React from "react";
+import styled from "styled-components";
+import Icon from "./Icon";
 
 const StyledMergeVertical = styled.i`
   & {
@@ -15,7 +15,7 @@ const StyledMergeVertical = styled.i`
   }
   &::after,
   &::before {
-    content: '';
+    content: "";
     display: block;
     box-sizing: border-box;
     position: absolute;
@@ -34,14 +34,15 @@ const StyledMergeVertical = styled.i`
     transform: rotate(-45deg);
     right: 5px;
   }
-`
+`;
 
-export const MergeCell = React.forwardRef<HTMLElement, React.HTMLAttributes<HTMLElement>>(
-  (props, ref) => {
-    return (
-      <Icon>
-        <StyledMergeVertical {...props} ref={ref} icon-role="merge-vertical" />
-      </Icon>
-    )
-  },
-)
+export const MergeCell = React.forwardRef<
+  HTMLElement,
+  React.HTMLAttributes<HTMLElement>
+>((props, ref) => {
+  return (
+    <Icon>
+      <StyledMergeVertical {...props} ref={ref} icon-role="merge-vertical" />
+    </Icon>
+  );
+});

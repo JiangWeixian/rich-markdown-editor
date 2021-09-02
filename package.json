@@ -1,21 +1,21 @@
 {
   "name": "@jiangweixian1994/rich-markdown-editor",
   "description": "A rich text editor with Markdown shortcuts",
-  "version": "0.2.6",
+  "version": "0.3.0",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "license": "BSD-3-Clause",
   "funding": "https://github.com/sponsors/outline",
   "scripts": {
     "test": "jest",
-    "lint": "tsc --noEmit && eslint '*/**/*.{js,ts,tsx}' --quiet",
+    "lint": "tsc --noEmit && eslint '*/**/*.{js,ts,tsx}' --quiet --fix",
     "start": "start-storybook -p 6006",
     "build": "tsc",
     "preversion": "yarn build",
     "watch": "yarn tsc-watch",
     "build-storybook": "build-storybook",
     "postinstall": "patch-package",
-    "prepublishOnly": "yarn run build"
+    "release": "yarn run build && yarn changeset publish"
   },
   "serve": {
     "open": true,

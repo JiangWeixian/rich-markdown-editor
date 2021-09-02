@@ -1,5 +1,5 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from "react";
+import styled from "styled-components";
 
 const Item = styled.span`
   border-radius: 100%;
@@ -8,22 +8,22 @@ const Item = styled.span`
   display: inline-block;
   align-self: center;
   &.red {
-    background-color: #FBBFBC;
+    background-color: #fbbfbc;
   }
 
   &.yellow {
-    background-color: #FFF895;
+    background-color: #fff895;
   }
 
   &.green {
-    background-color: #C5F1C1;
+    background-color: #c5f1c1;
   }
-`
+`;
 
 type ColorifyItemProps = {
-  className: string
-}
+  className: string;
+};
 
 export const ColorifyItem = (props: ColorifyItemProps) => {
-  return <Item className={props.className} />
-}
+  return <Item className={props.className} />;
+};

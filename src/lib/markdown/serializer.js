@@ -308,54 +308,54 @@ export class MarkdownSerializerState {
     this.inTable = true;
 
     let maxRows = node.childCount;
-    let maxCols = 0
-    node.forEach((row) => {
-      let cols = 0
-      row.forEach((cell) => {
-        cols += cell.attrs.colspan
-      })
-      maxCols = Math.max(maxCols, cols)
-    })
+    let maxCols = 0;
+    node.forEach(row => {
+      let cols = 0;
+      row.forEach(cell => {
+        cols += cell.attrs.colspan;
+      });
+      maxCols = Math.max(maxCols, cols);
+    });
 
     // FIXME:
-    const trackTables = []
+    const trackTables = [];
     for (let i = 0; i < maxRows; i++) {
-      trackTables.push(new Array(maxCols).fill("{{}}"))
+      trackTables.push(new Array(maxCols).fill("{{}}"));
     }
-    
+
     node.forEach((row, _, i) => {
-      let offsetJ = 0
+      let offsetJ = 0;
       row.forEach((cell, _, j) => {
         while (
           trackTables[i][j + offsetJ] !== "{{}}" &&
           j + offsetJ < maxCols
         ) {
-          offsetJ += 1
+          offsetJ += 1;
         }
         if (cell.attrs.rowspan === 1 && cell.attrs.colspan === 1) {
-          trackTables[i][j + offsetJ] = '{{}}'
-          return
+          trackTables[i][j + offsetJ] = "{{}}";
+          return;
         }
         for (let rspan = 0; rspan < cell.attrs.rowspan; rspan++) {
           for (let cspan = 0; cspan < cell.attrs.colspan; cspan++) {
             if (rspan === 0 && cspan === 0) {
-              trackTables[i][j + offsetJ] = '{{}}'
-              continue
+              trackTables[i][j + offsetJ] = "{{}}";
+              continue;
             }
             if (cspan === 0) {
-              trackTables[i + rspan][j + offsetJ] = '^^'
-              continue
+              trackTables[i + rspan][j + offsetJ] = "^^";
+              continue;
             }
-            trackTables[i + rspan][j + offsetJ + cspan] = ''
+            trackTables[i + rspan][j + offsetJ + cspan] = "";
           }
         }
-      })
-    })
+      });
+    });
 
     // ensure there is an empty newline above all tables
     this.out += "\n";
 
-    let fakeJ = 0
+    let fakeJ = 0;
 
     // rows
     node.forEach((row, _, i) => {
@@ -364,23 +364,23 @@ export class MarkdownSerializerState {
         headerBuffer = undefined;
       }
 
-      fakeJ = -1
-      
+      fakeJ = -1;
+
       // cols
       row.forEach((cell, _, j) => {
-        this.out += "|" //j === 0 ? "| " : " | ";
-        
-        fakeJ += 1
+        this.out += "|"; //j === 0 ? "| " : " | ";
+
+        fakeJ += 1;
         while (trackTables[i][fakeJ] !== "{{}}" && fakeJ < maxCols) {
           if (trackTables[i][fakeJ] === "^^") {
-            this.out += "^^|"
+            this.out += "^^|";
           }
           if (trackTables[i][fakeJ] === "") {
-            this.out += "|"
+            this.out += "|";
           }
-          fakeJ += 1
+          fakeJ += 1;
         }
-        
+
         cell.forEach(para => {
           // just padding the output so that empty cells take up the same space
           // as headings.
@@ -396,12 +396,12 @@ export class MarkdownSerializerState {
 
         while (j === row.childCount - 1 && fakeJ < maxCols) {
           if (trackTables[i][fakeJ] === "^^") {
-            this.out += "|^^"
+            this.out += "|^^";
           }
           if (trackTables[i][fakeJ] === "") {
-            this.out += "|"
+            this.out += "|";
           }
-          fakeJ += 1
+          fakeJ += 1;
         }
 
         if (i === 0) {

@@ -7,7 +7,7 @@ import tablesPlugin from "./tables";
 import noticesPlugin from "./notices";
 import underlinesPlugin from "./underlines";
 import multimdTablePlugin from "markdown-it-multimd-table";
-import colorPlugin from 'markdown-it-color';
+import colorPlugin from "markdown-it-color";
 
 export default function rules({ embeds, rules = {} }) {
   return markdownit("default", {
@@ -23,7 +23,7 @@ export default function rules({ embeds, rules = {} }) {
     .use(markPlugin({ delim: "!!", mark: "placeholder" }))
     .use(underlinesPlugin)
     .use(multimdTablePlugin, {
-      rowspan: true
+      rowspan: true,
     })
     .use(tablesPlugin)
     .use(colorPlugin)

@@ -116,7 +116,7 @@ export default function Example(props) {
               );
             }, Math.random() * 500);
           });
-        }}    
+        }}
         uploadImage={file => {
           console.log("File upload triggered: ", file);
 

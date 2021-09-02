@@ -243,3 +243,11 @@ RTL.args = {
 - [x] آیتم اول
 - [ ] آیتم دوم`,
 };
+
+export const StickBar = Template.bind({});
+StickBar.args = {
+  defaultValue: `# Welcome
+
+Just an easy to use **Markdown** editor with \`slash commands\``,
+  enableStickBar: true,
+};

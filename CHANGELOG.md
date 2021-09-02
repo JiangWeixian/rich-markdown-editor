@@ -1,5 +1,11 @@
 # @jiangweixian1994/rich-markdown-editor
 
+## 0.3.0
+
+### Minor Changes
+
+- 446e875: enable toolbar stick
+
 ## 0.2.6
 
 ### Patch Changes

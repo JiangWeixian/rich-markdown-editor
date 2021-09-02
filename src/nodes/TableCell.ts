@@ -24,18 +24,10 @@ export default class TableCell extends Node {
           node.attrs.alignment
             ? { style: `text-align: ${node.attrs.alignment}` }
             : {},
-          node.attrs.colspan > 1
-            ? { colspan: node.attrs.colspan }
-            : {},
-          node.attrs.rowspan > 1
-            ? { rowspan: node.attrs.rowspan }
-            : {},
-        )
-        return [
-          "td",
-          attrs,
-          0,
-        ];
+          node.attrs.colspan > 1 ? { colspan: node.attrs.colspan } : {},
+          node.attrs.rowspan > 1 ? { rowspan: node.attrs.rowspan } : {}
+        );
+        return ["td", attrs, 0];
       },
       attrs: {
         colspan: { default: 1 },
@@ -53,7 +45,11 @@ export default class TableCell extends Node {
     return {
       block: "td",
       getAttrs: tok => {
-        return { alignment: tok.info, colspan: tok.meta?.colspan, rowspan: tok.meta?.rowspan }
+        return {
+          alignment: tok.info,
+          colspan: tok.meta?.colspan,
+          rowspan: tok.meta?.rowspan,
+        };
       },
     };
   }
@@ -67,7 +63,7 @@ export default class TableCell extends Node {
             const decorations: Decoration[] = [];
             const cells = getCellsInColumn(0)(selection);
 
-            const offset: number[] = []
+            const offset: number[] = [];
 
             if (cells) {
               cells.forEach(({ pos, node }, index) => {
@@ -92,9 +88,11 @@ export default class TableCell extends Node {
                 }
                 decorations.push(
                   Decoration.widget(pos + 1, () => {
-                    const i = index + offset.slice(0, index).reduce((acc, cur) => acc + cur, 0)
+                    const i =
+                      index +
+                      offset.slice(0, index).reduce((acc, cur) => acc + cur, 0);
                     const rowSelected = isRowSelected(i)(selection);
-                    
+
                     let className = "grip-row";
                     if (rowSelected) {
                       className += " selected";

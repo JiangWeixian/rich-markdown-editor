@@ -167,7 +167,7 @@ export default class SelectionToolbar extends React.Component<Props> {
     if (!items.length) {
       return null;
     }
-    
+
     return (
       <Portal>
         <FloatingToolbar view={view} active={isVisible(this.props)}>

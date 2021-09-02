@@ -1,6 +1,6 @@
 import * as React from "react";
 import { EditorView } from "prosemirror-view";
-import { Portal } from 'react-portal'
+import { Portal } from "react-portal";
 import styled, { withTheme } from "styled-components";
 import ToolbarButton from "./ToolbarButton";
 import ToolbarSeparator from "./ToolbarSeparator";
@@ -22,21 +22,21 @@ const FlexibleWrapper = styled.div`
 `;
 
 type State = {
-  subItems: MenuItem[]
-  showSubItems: boolean
-  subItemsPositions: Record<string, number>
-  selectedIndex: number
-}
+  subItems: MenuItem[];
+  showSubItems: boolean;
+  subItemsPositions: Record<string, number>;
+  selectedIndex: number;
+};
 
 class Menu extends React.Component<Props, State> {
   state: State = {
     subItems: [],
     showSubItems: false,
     subItemsPositions: {},
-    selectedIndex: 0
-  }
+    selectedIndex: 0,
+  };
 
-  ref: HTMLDivElement | null
+  ref: HTMLDivElement | null;
 
   handleHover = (index: number, subItems: MenuItem[] = []) => {
     const rect = this.ref?.getBoundingClientRect();
@@ -46,10 +46,10 @@ class Menu extends React.Component<Props, State> {
       selectedIndex: index,
       subItemsPositions: {
         top: rect?.top || 0,
-        left: rect?.left || 0
-      }
-    })
-  }
+        left: rect?.left || 0,
+      },
+    });
+  };
 
   render() {
     const { view, items } = this.props;
@@ -75,7 +75,7 @@ class Menu extends React.Component<Props, State> {
                 this.handleHover(index, item.items);
               }}
               onClick={() => {
-                return item.name && this.props.commands[item.name](item.attrs)
+                return item.name && this.props.commands[item.name](item.attrs);
               }}
               active={isActive}
             >
@@ -86,41 +86,43 @@ class Menu extends React.Component<Props, State> {
           );
         })}
         <Portal>
-        {this.state.subItems.length && <FloatingToolbarWrapper
-            active={this.state.showSubItems}
-            offset={0}
-            noArrow={true}
-            style={{
-              top: `${(this.state.subItemsPositions.top || 0) - 50}px`,
-              // TODO: selected index
-              left: `${(this.state.subItemsPositions.left || 0) + 4 * 24}px`,
-            }}
-          >
-            {this.state.subItems.map((item, index) => {
-              if (item.name === "separator" && item.visible !== false) {
-                return <ToolbarSeparator key={index} />;
-              }
-              if (item.visible === false || !item.icon) {
-                return null;
-              }
-              const Icon = item.icon;
-              return (
-                <ToolbarButton
-                  key={index}
-                  onClick={() => {
-                    return (
-                      item.name && this.props.commands[item.name](item.attrs)
-                    );
-                  }}
-                  active={false}
-                >
-                  <Tooltip tooltip={item.tooltip} placement="top">
-                    <Icon />
-                  </Tooltip>
-                </ToolbarButton>
-              );
-            })}
-          </FloatingToolbarWrapper>}
+          {this.state.subItems.length && (
+            <FloatingToolbarWrapper
+              active={this.state.showSubItems}
+              offset={0}
+              noArrow={true}
+              style={{
+                top: `${(this.state.subItemsPositions.top || 0) - 50}px`,
+                // TODO: selected index
+                left: `${(this.state.subItemsPositions.left || 0) + 4 * 24}px`,
+              }}
+            >
+              {this.state.subItems.map((item, index) => {
+                if (item.name === "separator" && item.visible !== false) {
+                  return <ToolbarSeparator key={index} />;
+                }
+                if (item.visible === false || !item.icon) {
+                  return null;
+                }
+                const Icon = item.icon;
+                return (
+                  <ToolbarButton
+                    key={index}
+                    onClick={() => {
+                      return (
+                        item.name && this.props.commands[item.name](item.attrs)
+                      );
+                    }}
+                    active={false}
+                  >
+                    <Tooltip tooltip={item.tooltip} placement="top">
+                      <Icon />
+                    </Tooltip>
+                  </ToolbarButton>
+                );
+              })}
+            </FloatingToolbarWrapper>
+          )}
         </Portal>
       </FlexibleWrapper>
     );

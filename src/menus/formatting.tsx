@@ -13,15 +13,15 @@ import {
 import React from "react";
 import { isInTable } from "prosemirror-tables";
 import { EditorState } from "prosemirror-state";
-import { isCellSelection } from 'prosemirror-utils'
+import { isCellSelection } from "prosemirror-utils";
 import isInList from "../queries/isInList";
 import isMarkActive from "../queries/isMarkActive";
 import isNodeActive from "../queries/isNodeActive";
 import getCellCount from "../queries/getCellCount";
 import { MenuItem } from "../types";
 import baseDictionary from "../dictionary";
-import { MergeCell } from '../components/Icons/MergeCell'
-import { SplitCell } from '../components/Icons/SplitCell'
+import { MergeCell } from "../components/Icons/MergeCell";
+import { SplitCell } from "../components/Icons/SplitCell";
 import { ColorifyItem } from "../components/Colorify";
 
 export default function formattingMenuItems(
@@ -75,7 +75,7 @@ export default function formattingMenuItems(
       items: [
         {
           name: "color",
-          tooltip: 'yellow',
+          tooltip: "yellow",
           icon: () => <ColorifyItem className="yellow" />,
           attrs: { bg: "yellow" },
           active: isMarkActive(schema.marks.color),
@@ -83,7 +83,7 @@ export default function formattingMenuItems(
         },
         {
           name: "color",
-          tooltip: 'red',
+          tooltip: "red",
           icon: () => <ColorifyItem className="red" />,
           attrs: { bg: "red" },
           active: isMarkActive(schema.marks.color),
@@ -91,13 +91,13 @@ export default function formattingMenuItems(
         },
         {
           name: "color",
-          tooltip: 'green',
+          tooltip: "green",
           icon: () => <ColorifyItem className="green" />,
           attrs: { bg: "green" },
           active: isMarkActive(schema.marks.color),
           visible: !isTemplate,
         },
-      ]
+      ],
     },
     {
       name: "code_inline",
@@ -145,7 +145,7 @@ export default function formattingMenuItems(
       tooltip: dictionary.deleteColumn,
       icon: SplitCell,
       active: () => {
-        return isCellSelection(state.selection)
+        return isCellSelection(state.selection);
       },
       visible: isSingle,
     },
