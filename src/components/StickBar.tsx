@@ -33,7 +33,7 @@ type State = {
 
 const defaultSelectedIndex = -1;
 
-export class ToolbarMenu extends React.Component<Props, State> {
+export default class StickBar extends React.Component<Props, State> {
   menuRef = React.createRef<HTMLDivElement>();
   inputRef = React.createRef<HTMLInputElement>();
 
@@ -119,22 +119,24 @@ export class ToolbarMenu extends React.Component<Props, State> {
   }
 
   insertBlock(item: MenuItem) {
-    this.clearSearch();
-
-    const command = this.props.commands[item.name!];
-    if (command) {
-      command(item.attrs);
-    } else {
-      this.props.commands[`create${capitalize(item.name)}`](item.attrs);
+    if (!item.name) {
+      this.props.onClose();
+      return;
     }
-
+    this.props.commands[item.name](item.attrs);
     this.props.onClose();
   }
 
   get filtered() {
     const { dictionary, uploadImage, commands } = this.props;
+
+    if (!commands) {
+      return [];
+    }
+
     const items: MenuItem[] = getMenuItems(dictionary);
 
+    // TODO: filter separator
     const filtered = items.filter(item => {
       if (item.name === "separator") return true;
 
@@ -180,7 +182,11 @@ export class ToolbarMenu extends React.Component<Props, State> {
     const items = this.filtered;
 
     return (
-      <Wrapper id="block-menu-container" ref={this.menuRef}>
+      <Wrapper
+        data-component="stick-bar-container"
+        id="stick-bar-container"
+        ref={this.menuRef}
+      >
         <List>
           {items.map((item, index) => {
             if (item.name === "separator") {
@@ -192,10 +198,11 @@ export class ToolbarMenu extends React.Component<Props, State> {
             }
             const selected = index === this.state.selectedIndex;
 
-            if (!item.title || !item.icon) {
+            if (!item.icon) {
               return null;
             }
 
+            // TODO: item status
             return (
               <ListItem key={index}>
                 <StickBarItem

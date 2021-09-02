@@ -11,51 +11,6 @@ const defaultValue = `
 |^^|{yellow}(2 NADH)3--5 ATP2 NADH5 ATP||
 |Pyruvaye oxidation|^^||
 
-\
-
-|Stage|Direct Products|ATP Yields|
-|---:|---:|---:|
-|Glycolysis|2 ATP||
-|^^|{yellow}(2 NADH)3--5 ATP2 NADH5 ATP||
-|Pyruvaye oxidation|^^||
-
-\
-
-Stage | Direct Products | ATP Yields
-----: | --------------: | ---------:
-Glycolysis | 2 ATP ||
-^^ | 2 NADH | 3--5 ATP |
-Pyruvaye oxidation | 2 NADH | 5 ATP |
-Citric acid cycle | 2 ATP ||
-^^ | 6 NADH | 15 ATP |
-^^ | 2 FADH2 | 3 ATP |
-**30--32** ATP |||
-
-\
-
-
-|Stage|Direct Products|ATP Yields|
-|---:|---:|---:|
-|Glycolysis|2 ATP||
-|^^|2 NADH3--5 ATP2 NADH5 ATP||
-|Pyruvaye oxidation|^^||
-|Citric acid cycle|2 ATP||
-|^^|6 NADH|15 ATP|
-|^^|2 FADH2|3 ATP|
-|**30--32** ATP|||
-
-\
-
-|Stage|Direct Products|ATP Yields|
-|---:|---:|---:|
-|Glycolysis|2 ATP||
-|^^|2 NADH3--5 ATP2 NADH5 ATP||
-|Pyruvaye oxidation|^^||
-|Citric acid cycle|2 ATP||
-|^^|6 NADH|15 ATP|
-|^^|2 FADH2|3 ATP|
-|**30--32** ATP|||
-
 `;
 
 function App() {
@@ -67,7 +22,11 @@ function App() {
   }, []);
   return (
     <div className="App">
-      <RichMarkdownEditor value={value} onChange={v => console.log(v())} />
+      <RichMarkdownEditor
+        value={value}
+        onChange={v => console.log(v())}
+        enableStickBar={true}
+      />
     </div>
   );
 }

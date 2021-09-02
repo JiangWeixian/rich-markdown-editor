@@ -19,6 +19,7 @@ import { SearchResult } from "./components/LinkEditor";
 import { EmbedDescriptor, ToastType } from "./types";
 import SelectionToolbar from "./components/SelectionToolbar";
 import BlockMenu from "./components/BlockMenu";
+import StickBar from "./components/StickBar";
 import LinkToolbar from "./components/LinkToolbar";
 import Tooltip from "./components/Tooltip";
 import Extension from "./lib/Extension";
@@ -84,6 +85,7 @@ export type Props = {
   defaultValue: string;
   placeholder: string;
   extensions: Extension[];
+  enableStickBar?: boolean;
   disableExtensions?: (
     | "strong"
     | "code_inline"
@@ -729,6 +731,20 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
       >
         <ThemeProvider theme={this.theme()}>
           <React.Fragment>
+            {this.props.enableStickBar && this.view && (
+              <StickBar
+                view={this.view}
+                commands={this.commands}
+                dictionary={this.dictionary(this.props.dictionary)}
+                rtl={isRTL}
+                onClose={this.handleCloseBlockMenu}
+                uploadImage={this.props.uploadImage}
+                onLinkToolbarOpen={this.handleOpenLinkMenu}
+                onImageUploadStart={this.props.onImageUploadStart}
+                onImageUploadStop={this.props.onImageUploadStop}
+                onShowToast={this.props.onShowToast}
+              />
+            )}
             <StyledEditor
               dir={dir}
               rtl={isRTL}
