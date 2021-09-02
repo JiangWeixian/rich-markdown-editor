@@ -1,135 +1,133 @@
 import {
-  BoldIcon,
+  BlockQuoteIcon,
+  BulletedListIcon,
   CodeIcon,
   Heading1Icon,
   Heading2Icon,
-  ItalicIcon,
-  BlockQuoteIcon,
+  Heading3Icon,
+  HorizontalRuleIcon,
+  OrderedListIcon,
+  PageBreakIcon,
+  TableIcon,
+  TodoListIcon,
+  ImageIcon,
+  StarredIcon,
+  WarningIcon,
+  InfoIcon,
   LinkIcon,
-  StrikethroughIcon,
-  InputIcon,
-  HighlightIcon,
 } from "outline-icons";
-import { isInTable } from "prosemirror-tables";
-import { EditorState } from "prosemirror-state";
-import { isCellSelection } from "prosemirror-utils";
-import isInList from "../queries/isInList";
-import isMarkActive from "../queries/isMarkActive";
-import isNodeActive from "../queries/isNodeActive";
-import getCellCount from "../queries/getCellCount";
 import { MenuItem } from "../types";
 import baseDictionary from "../dictionary";
-import { MergeCell } from "../components/Icons/MergeCell";
-import { SplitCell } from "../components/Icons/SplitCell";
 
-export default function stickItems(
-  state: EditorState,
-  isTemplate: boolean,
+// TODO: item enable / disable status
+export default function blockMenuItems(
   dictionary: typeof baseDictionary
 ): MenuItem[] {
-  const { schema } = state;
-  const isTable = isInTable(state);
-  const isList = isInList(state);
-  const isSingle =
-    isCellSelection(state.selection) && getCellCount(state).total === 1;
-  const allowBlocks = !isTable && !isList;
-
   return [
     {
-      name: "placeholder",
-      tooltip: dictionary.placeholder,
-      icon: InputIcon,
-      active: isMarkActive(schema.marks.placeholder),
-      visible: isTemplate,
-    },
-    {
-      name: "separator",
-      visible: isTemplate,
-    },
-    {
-      name: "strong",
-      tooltip: dictionary.strong,
-      icon: BoldIcon,
-      active: isMarkActive(schema.marks.strong),
-    },
-    {
-      name: "em",
-      tooltip: dictionary.em,
-      icon: ItalicIcon,
-      active: isMarkActive(schema.marks.em),
-    },
-    {
-      name: "strikethrough",
-      tooltip: dictionary.strikethrough,
-      icon: StrikethroughIcon,
-      active: isMarkActive(schema.marks.strikethrough),
-    },
-    {
-      name: "highlight",
-      tooltip: dictionary.mark,
-      icon: HighlightIcon,
-      active: isMarkActive(schema.marks.color),
-      visible: !isTemplate,
-    },
-    {
-      name: "code_inline",
-      tooltip: dictionary.codeInline,
-      icon: CodeIcon,
-      active: isMarkActive(schema.marks.code_inline),
-    },
-    {
-      name: "separator",
-      visible: allowBlocks,
-    },
-    {
       name: "heading",
-      tooltip: dictionary.heading,
+      title: dictionary.h1,
+      tooltip: dictionary.h1,
       icon: Heading1Icon,
-      active: isNodeActive(schema.nodes.heading, { level: 1 }),
       attrs: { level: 1 },
-      visible: allowBlocks,
     },
     {
       name: "heading",
-      tooltip: dictionary.subheading,
+      title: dictionary.h2,
+      tooltip: dictionary.h2,
       icon: Heading2Icon,
-      active: isNodeActive(schema.nodes.heading, { level: 2 }),
       attrs: { level: 2 },
-      visible: allowBlocks,
+    },
+    {
+      name: "heading",
+      title: dictionary.h3,
+      tooltip: dictionary.h3,
+      icon: Heading3Icon,
+      attrs: { level: 3 },
+    },
+    {
+      name: "checkbox_list",
+      title: dictionary.checkboxList,
+      tooltip: dictionary.checkboxList,
+      icon: TodoListIcon,
+      shortcut: "^ ⇧ 7",
+    },
+    {
+      name: "bullet_list",
+      title: dictionary.bulletList,
+      tooltip: dictionary.bulletList,
+      icon: BulletedListIcon,
+    },
+    {
+      name: "ordered_list",
+      title: dictionary.orderedList,
+      tooltip: dictionary.orderedList,
+      icon: OrderedListIcon,
+    },
+    {
+      name: "table",
+      title: dictionary.table,
+      tooltip: dictionary.table,
+      icon: TableIcon,
+      attrs: { rowsCount: 3, colsCount: 3 },
     },
     {
       name: "blockquote",
+      title: dictionary.quote,
       tooltip: dictionary.quote,
       icon: BlockQuoteIcon,
-      active: isNodeActive(schema.nodes.blockquote),
-      attrs: { level: 2 },
-      visible: allowBlocks,
     },
     {
-      name: "mergeCells",
-      tooltip: dictionary.deleteColumn,
-      icon: MergeCell,
-      active: () => isCellSelection(state.selection),
-      visible: isTable,
+      name: "code_block",
+      title: dictionary.codeBlock,
+      tooltip: dictionary.codeBlock,
+      icon: CodeIcon,
     },
     {
-      name: "splitCell",
-      tooltip: dictionary.deleteColumn,
-      icon: SplitCell,
-      active: () => {
-        return isCellSelection(state.selection);
-      },
-      visible: isSingle,
+      name: "hr",
+      title: dictionary.hr,
+      tooltip: dictionary.hr,
+      icon: HorizontalRuleIcon,
     },
     {
-      name: "separator",
+      name: "hr",
+      title: dictionary.pageBreak,
+      tooltip: dictionary.pageBreak,
+      icon: PageBreakIcon,
+      attrs: { markup: "***" },
+    },
+    {
+      name: "image",
+      title: dictionary.image,
+      tooltip: dictionary.image,
+      icon: ImageIcon,
     },
     {
       name: "link",
-      tooltip: dictionary.createLink,
+      title: dictionary.link,
+      tooltip: dictionary.link,
       icon: LinkIcon,
-      active: isMarkActive(schema.marks.link),
-      attrs: { href: "" },
+    },
+    {
+      name: "container_notice",
+      title: dictionary.infoNotice,
+      tooltip: dictionary.infoNotice,
+      icon: InfoIcon,
+      attrs: { style: "info" },
+    },
+    {
+      name: "container_notice",
+      title: dictionary.warningNotice,
+      tooltip: dictionary.warningNotice,
+      icon: WarningIcon,
+      attrs: { style: "warning" },
+    },
+    {
+      name: "container_notice",
+      title: dictionary.tipNotice,
+      tooltip: dictionary.tipNotice,
+      icon: StarredIcon,
+      attrs: { style: "tip" },
     },
   ];
 }

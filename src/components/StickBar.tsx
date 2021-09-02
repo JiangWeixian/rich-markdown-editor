@@ -9,10 +9,8 @@ import { MenuItem } from "../types";
 import VisuallyHidden from "./VisuallyHidden";
 import getDataTransferFiles from "../lib/getDataTransferFiles";
 import insertFiles from "../commands/insertFiles";
-import getMenuItems from "../menus/block";
+import getStickItems from "../menus/stick";
 import baseDictionary from "../dictionary";
-
-const SSR = typeof window === "undefined";
 
 type Props = {
   rtl: boolean;
@@ -40,16 +38,6 @@ export default class StickBar extends React.Component<Props, State> {
   state: State = {
     selectedIndex: defaultSelectedIndex,
   };
-
-  componentDidMount() {
-    // mounted
-  }
-
-  componentWillUnmount() {
-    if (!SSR) {
-      // unmount
-    }
-  }
 
   insertItem = (item: MenuItem) => {
     switch (item.name) {
@@ -134,12 +122,9 @@ export default class StickBar extends React.Component<Props, State> {
       return [];
     }
 
-    const items: MenuItem[] = getMenuItems(dictionary);
+    const items: MenuItem[] = getStickItems(dictionary);
 
-    // TODO: filter separator
-    const filtered = items.filter(item => {
-      if (item.name === "separator") return true;
-
+    return items.filter(item => {
       // Some extensions may be disabled, remove corresponding menu items
       if (
         item.name &&
@@ -156,25 +141,6 @@ export default class StickBar extends React.Component<Props, State> {
       return !item.defaultHidden;
     });
 
-    // this block literally just trims unneccessary separators from the results
-    return filtered.reduce((acc, item, index) => {
-      // trim separators from start / end
-      if (item.name === "separator" && index === 0) return acc;
-      if (item.name === "separator" && index === filtered.length - 1)
-        return acc;
-
-      // trim double separators looking ahead / behind
-      const prev = filtered[index - 1];
-      if (prev && prev.name === "separator" && item.name === "separator")
-        return acc;
-
-      const next = filtered[index + 1];
-      if (next && next.name === "separator" && item.name === "separator")
-        return acc;
-
-      // otherwise, continue
-      return [...acc, item];
-    }, []);
   }
 
   render() {
@@ -196,18 +162,16 @@ export default class StickBar extends React.Component<Props, State> {
                 </ListItem>
               );
             }
-            const selected = index === this.state.selectedIndex;
 
-            if (!item.icon) {
+            if (!item.icon || !item.tooltip) {
               return null;
             }
 
-            // TODO: item status
             return (
               <ListItem key={index}>
                 <StickBarItem
                   onClick={() => this.insertItem(item)}
-                  selected={selected}
+                  tooltip={item.tooltip}
                   icon={item.icon}
                 />
               </ListItem>

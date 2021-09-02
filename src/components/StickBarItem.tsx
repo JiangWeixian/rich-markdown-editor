@@ -1,32 +1,29 @@
 import * as React from "react";
 import styled, { withTheme } from "styled-components";
 import theme from "../theme";
+import Tooltip from "./Tooltip";
 
 type Props = {
-  selected: boolean;
   disabled?: boolean;
   onClick: () => void;
   theme: typeof theme;
+  tooltip: string;
   icon: typeof React.Component | React.FC<any>;
 };
 
-function MenuItem({ selected, disabled, onClick, icon }: Props) {
+function MenuItem({ disabled, onClick, icon, tooltip }: Props) {
   const Icon = icon;
 
   return (
-    <Item selected={selected} onClick={disabled ? undefined : onClick}>
-      <Icon
-        color={
-          selected ? theme.blockToolbarIconSelected : theme.blockToolbarIcon
-        }
-      />
+    <Item onClick={disabled ? undefined : onClick}>
+      <Tooltip tooltip={tooltip}>
+        <Icon />
+      </Tooltip>
     </Item>
   );
 }
 
-const Item = styled.button<{
-  selected: boolean;
-}>`
+const Item = styled.button`
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -38,21 +35,14 @@ const Item = styled.button<{
   cursor: pointer;
   border: none;
   opacity: ${props => (props.disabled ? ".5" : "1")};
-  color: ${props =>
-    props.selected
-      ? props.theme.blockToolbarTextSelected
-      : props.theme.blockToolbarText};
-  background: ${props =>
-    props.selected ? props.theme.blockToolbarTrigger : "none"};
+  color: ${props => props.theme.blockToolbarText};
+  background: none;
   padding: 0 16px;
   outline: none;
   &:hover,
   &:active {
     color: ${props => props.theme.blockToolbarTextSelected};
-    background: ${props =>
-      props.selected
-        ? props.theme.blockToolbarTrigger
-        : props.theme.blockToolbarHoverBackground};
+    background: ${props => props.theme.blockToolbarHoverBackground};
   }
 `;
 
