@@ -1,6 +1,6 @@
-import React from 'react'
-import styled from 'styled-components'
-import Icon from './Icon'
+import React from "react";
+import styled from "styled-components";
+import Icon from "./Icon";
 
 const StyledSplitCell = styled.i`
   & {
@@ -10,12 +10,14 @@ const StyledSplitCell = styled.i`
     transform: scale(var(--ggs, 1));
     width: 20px;
     height: 10px;
-    background: linear-gradient(to left, currentColor 15px, transparent 0) no-repeat 2px 4px/6px 2px,
-      linear-gradient(to left, currentColor 15px, transparent 0) no-repeat 12px 4px/6px 2px;
+    background: linear-gradient(to left, currentColor 15px, transparent 0)
+        no-repeat 2px 4px/6px 2px,
+      linear-gradient(to left, currentColor 15px, transparent 0) no-repeat 12px
+        4px/6px 2px;
   }
   &::after,
   &::before {
-    content: '';
+    content: "";
     display: block;
     box-sizing: border-box;
     position: absolute;
@@ -34,13 +36,14 @@ const StyledSplitCell = styled.i`
     border-right: 2px solid;
     right: 1px;
   }
-`
-export const SplitCell = React.forwardRef<HTMLElement, React.HTMLAttributes<HTMLElement>>(
-  (props, ref) => {
-    return (
-      <Icon>
-        <StyledSplitCell {...props} ref={ref} icon-role="arrows-h" />
-      </Icon>
-    )
-  },
-)
+`;
+export const SplitCell = React.forwardRef<
+  HTMLElement,
+  React.HTMLAttributes<HTMLElement>
+>((props, ref) => {
+  return (
+    <Icon>
+      <StyledSplitCell {...props} ref={ref} icon-role="arrows-h" />
+    </Icon>
+  );
+});

@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 export default styled.span`
   width: 24px;
@@ -7,4 +7,4 @@ export default styled.span`
   justify-content: center;
   align-items: center;
   color: #fff;
-`
+`;

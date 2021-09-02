@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
-import './App.css'
-import RichMarkdownEditor from '../../src'
+import React, { useEffect, useState } from "react";
+import "./App.css";
+import RichMarkdownEditor from "../../src";
 
 const defaultValue = `
 \
@@ -56,20 +56,20 @@ Citric acid cycle | 2 ATP ||
 |^^|2 FADH2|3 ATP|
 |**30--32** ATP|||
 
-`
+`;
 
 function App() {
-  const [value, setValue] = useState("")
+  const [value, setValue] = useState("");
   useEffect(() => {
     setTimeout(() => {
-      setValue(defaultValue)
-    }, 1000)
-  }, [])
+      setValue(defaultValue);
+    }, 1000);
+  }, []);
   return (
     <div className="App">
       <RichMarkdownEditor value={value} onChange={v => console.log(v())} />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

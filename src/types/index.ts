@@ -18,7 +18,7 @@ export type MenuItem = {
   visible?: boolean;
   active?: (state: EditorState) => boolean;
   // show extra nested panel
-  items?: MenuItem[]
+  items?: MenuItem[];
 };
 
 export type EmbedDescriptor = MenuItem & {
