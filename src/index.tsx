@@ -1514,6 +1514,10 @@ const StyledEditor = styled("div")<{
       border-bottom: 1px solid ${props => props.theme.tableDivider};
     }
 
+    tr:first-child {
+      background-color: #edf2f7;
+    }
+
     th {
       background: ${props => props.theme.tableHeaderBackground};
     }

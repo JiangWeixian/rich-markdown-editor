@@ -15,7 +15,7 @@ import {
   toggleHeaderColumn,
   toggleHeaderRow,
   mergeCells,
-  addRowAfter
+  splitCell,
 } from "prosemirror-tables";
 import {
   addRowAt,
@@ -92,7 +92,8 @@ export default class Table extends Node {
       toggleHeaderCell: () => toggleHeaderCell,
       setCellAttr: () => setCellAttr,
       fixTables: () => fixTables,
-      mergeCells: () => mergeCells
+      mergeCells: () => mergeCells,
+      splitCell: () => splitCell,
     };
   }
 

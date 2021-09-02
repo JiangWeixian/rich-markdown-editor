@@ -17,9 +17,11 @@ import { isCellSelection } from 'prosemirror-utils'
 import isInList from "../queries/isInList";
 import isMarkActive from "../queries/isMarkActive";
 import isNodeActive from "../queries/isNodeActive";
+import getCellCount from "../queries/getCellCount";
 import { MenuItem } from "../types";
 import baseDictionary from "../dictionary";
-import { MergeVertical } from '../components/Icons/MergeCell'
+import { MergeCell } from '../components/Icons/MergeCell'
+import { SplitCell } from '../components/Icons/SplitCell'
 import { ColorifyItem } from "../components/Colorify";
 
 export default function formattingMenuItems(
@@ -30,6 +32,8 @@ export default function formattingMenuItems(
   const { schema } = state;
   const isTable = isInTable(state);
   const isList = isInList(state);
+  const isSingle =
+    isCellSelection(state.selection) && getCellCount(state).total === 1;
   const allowBlocks = !isTable && !isList;
 
   return [
@@ -132,9 +136,18 @@ export default function formattingMenuItems(
     {
       name: "mergeCells",
       tooltip: dictionary.deleteColumn,
-      icon: MergeVertical,
+      icon: MergeCell,
       active: () => isCellSelection(state.selection),
       visible: isTable,
+    },
+    {
+      name: "splitCell",
+      tooltip: dictionary.deleteColumn,
+      icon: SplitCell,
+      active: () => {
+        return isCellSelection(state.selection)
+      },
+      visible: isSingle,
     },
     {
       name: "separator",

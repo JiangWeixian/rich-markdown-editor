@@ -1,5 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
+import Icon from './Icon'
+
 const StyledMergeVertical = styled.i`
   & {
     box-sizing: border-box;
@@ -34,21 +36,12 @@ const StyledMergeVertical = styled.i`
   }
 `
 
-const Wrapper = styled.span`
-  width: 24px;
-  height: 24px;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  color: #fff;
-`
-
-export const MergeVertical = React.forwardRef<HTMLElement, React.HTMLAttributes<HTMLElement>>(
+export const MergeCell = React.forwardRef<HTMLElement, React.HTMLAttributes<HTMLElement>>(
   (props, ref) => {
     return (
-      <Wrapper>
+      <Icon>
         <StyledMergeVertical {...props} ref={ref} icon-role="merge-vertical" />
-      </Wrapper>
+      </Icon>
     )
   },
 )

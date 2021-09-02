@@ -306,7 +306,6 @@ export class MarkdownSerializerState {
     let headerBuffer = "";
     const prevTable = this.inTable;
     this.inTable = true;
-    const fakeCols = {}
 
     let maxRows = node.childCount;
     let maxCols = 0
@@ -318,30 +317,37 @@ export class MarkdownSerializerState {
       maxCols = Math.max(maxCols, cols)
     })
 
-    const fakeTable = []
+    // FIXME:
+    const trackTables = []
     for (let i = 0; i < maxRows; i++) {
-      fakeTable.push(new Array(maxCols).fill("{{}}"))
+      trackTables.push(new Array(maxCols).fill("{{}}"))
     }
+    
     node.forEach((row, _, i) => {
+      let offsetJ = 0
       row.forEach((cell, _, j) => {
-        if (cell.attrs.rowspan > 1) {
-          new Array(cell.attrs.rowspan - 1)
-            .fill(0)
-            .forEach((_, index) => {
-              fakeTable[i + index + 1][j] = "^^"
-            })
+        while (
+          trackTables[i][j + offsetJ] !== "{{}}" &&
+          j + offsetJ < maxCols
+        ) {
+          offsetJ += 1
         }
-        let fakeJ = j
-        if (cell.attrs.colspan > 1) {
-          new Array(cell.attrs.colspan - 1)
-            .fill(0)
-            .forEach(() => {
-              while (fakeTable[i][fakeJ] === "^^") {
-                fakeJ += 1
-              }
-              fakeJ += 1
-              fakeTable[i][fakeJ] = ""
-            })
+        if (cell.attrs.rowspan === 1 && cell.attrs.colspan === 1) {
+          trackTables[i][j + offsetJ] = '{{}}'
+          return
+        }
+        for (let rspan = 0; rspan < cell.attrs.rowspan; rspan++) {
+          for (let cspan = 0; cspan < cell.attrs.colspan; cspan++) {
+            if (rspan === 0 && cspan === 0) {
+              trackTables[i][j + offsetJ] = '{{}}'
+              continue
+            }
+            if (cspan === 0) {
+              trackTables[i + rspan][j + offsetJ] = '^^'
+              continue
+            }
+            trackTables[i + rspan][j + offsetJ + cspan] = ''
+          }
         }
       })
     })
@@ -362,19 +368,19 @@ export class MarkdownSerializerState {
       
       // cols
       row.forEach((cell, _, j) => {
-        this.out += "| " //j === 0 ? "| " : " | ";
+        this.out += "|" //j === 0 ? "| " : " | ";
         
         fakeJ += 1
-        while (fakeTable[i][fakeJ] !== "{{}}" && fakeJ < maxCols) {
-          if (fakeTable[i][fakeJ] === "^^") {
+        while (trackTables[i][fakeJ] !== "{{}}" && fakeJ < maxCols) {
+          if (trackTables[i][fakeJ] === "^^") {
             this.out += "^^|"
           }
-          if (fakeTable[i][fakeJ] === "") {
+          if (trackTables[i][fakeJ] === "") {
             this.out += "|"
           }
           fakeJ += 1
         }
-
+        
         cell.forEach(para => {
           // just padding the output so that empty cells take up the same space
           // as headings.
@@ -389,10 +395,10 @@ export class MarkdownSerializerState {
         });
 
         while (j === row.childCount - 1 && fakeJ < maxCols) {
-          if (fakeTable[i][fakeJ] === "^^") {
+          if (trackTables[i][fakeJ] === "^^") {
             this.out += "|^^"
           }
-          if (fakeTable[i][fakeJ] === "") {
+          if (trackTables[i][fakeJ] === "") {
             this.out += "|"
           }
           fakeJ += 1
@@ -411,7 +417,9 @@ export class MarkdownSerializerState {
         }
       });
 
-      this.out += "|\n";
+      if (fakeJ !== -1) {
+        this.out += "|\n";
+      }
     });
 
     this.inTable = prevTable;
