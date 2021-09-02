@@ -30,6 +30,20 @@
 
 - patch packages devonly
 
+## 0.2.1
+
+### Patch Changes
+
+- 1ccf535: build before publish
+
+## 0.2.0
+
+### Minor Changes
+
+- - table head background color
+  - fix serialize table
+  - split table cell
+
 ## 0.1.5
 
 ### Patch Changes
