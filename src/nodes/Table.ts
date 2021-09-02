@@ -25,6 +25,7 @@ import {
 } from "prosemirror-utils";
 import { Plugin, TextSelection } from "prosemirror-state";
 
+// TODO: add row failed with merged cell
 export default class Table extends Node {
   get name() {
     return "table";
