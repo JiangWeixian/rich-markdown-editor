@@ -111,7 +111,13 @@ export default class StickBar extends React.Component<Props, State> {
       this.props.onClose();
       return;
     }
-    this.props.commands[item.name](item.attrs);
+    const command = this.props.commands[item.name];
+    if (command) {
+      command(item.attrs);
+    } else {
+      this.props.commands[`create${capitalize(item.name)}`](item.attrs);
+    }
+
     this.props.onClose();
   }
 

@@ -15,7 +15,8 @@
     "watch": "yarn tsc-watch",
     "build-storybook": "build-storybook",
     "postinstall": "patch-package",
-    "release": "yarn run build && yarn changeset publish"
+    "ci:publish": "yarn run build && yarn changeset publish",
+    "ci:version": "yarn changeset version"
   },
   "serve": {
     "open": true,
