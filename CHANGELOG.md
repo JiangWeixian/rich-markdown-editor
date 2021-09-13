@@ -1,5 +1,11 @@
 # @jiangweixian1994/rich-markdown-editor
 
+## 0.3.2
+
+### Patch Changes
+
+- 3344811: fix create table
+
 ## 0.3.1
 
 ### Patch Changes
