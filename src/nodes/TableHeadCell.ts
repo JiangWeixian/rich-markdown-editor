@@ -15,13 +15,15 @@ export default class TableHeadCell extends Node {
       isolating: true,
       parseDOM: [{ tag: "th" }],
       toDOM(node) {
-        return [
-          "th",
+        const attrs = Object.assign(
+          {},
           node.attrs.alignment
             ? { style: `text-align: ${node.attrs.alignment}` }
             : {},
-          0,
-        ];
+          node.attrs.colspan > 1 ? { colspan: node.attrs.colspan } : {},
+          node.attrs.rowspan > 1 ? { rowspan: node.attrs.rowspan } : {}
+        );
+        return ["th", attrs, 0];
       },
       attrs: {
         colspan: { default: 1 },
@@ -38,7 +40,13 @@ export default class TableHeadCell extends Node {
   parseMarkdown() {
     return {
       block: "th",
-      getAttrs: tok => ({ alignment: tok.info }),
+      getAttrs: tok => {
+        return {
+          alignment: tok.info,
+          colspan: tok.meta?.colspan,
+          rowspan: tok.meta?.rowspan,
+        };
+      },
     };
   }
 
