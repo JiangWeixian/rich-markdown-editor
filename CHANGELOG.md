@@ -1,5 +1,11 @@
 # @jiangweixian1994/rich-markdown-editor
 
+## 0.3.3
+
+### Patch Changes
+
+- 49fcb63: fix merge th
+
 ## 0.3.2
 
 ### Patch Changes
