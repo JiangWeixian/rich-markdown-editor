@@ -44,9 +44,8 @@ export default class StickBar extends React.Component<Props, State> {
       case "image":
         return this.triggerImagePick();
       case "link": {
-        this.clearSearch();
-        this.props.onClose();
-        this.props.onLinkToolbarOpen();
+        this.insertBlock(item);
+        // this.props.onLinkToolbarOpen();
         return;
       }
       default:

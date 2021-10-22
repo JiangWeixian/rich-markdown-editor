@@ -69,8 +69,9 @@ export default class LinkToolbar extends React.Component<Props> {
     }
 
     const { dispatch, state } = view;
+    alert(state.selection)
     const { from, to } = state.selection;
-    assert(from === to);
+    // assert(from === to);
 
     const href = `creating#${title}…`;
 
@@ -108,7 +109,7 @@ export default class LinkToolbar extends React.Component<Props> {
 
     const { dispatch, state } = view;
     const { from, to } = state.selection;
-    assert(from === to);
+    // assert(from === to);
 
     dispatch(
       view.state.tr
