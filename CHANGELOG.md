@@ -1,5 +1,11 @@
 # @jiangweixian1994/rich-markdown-editor
 
+## 0.3.4
+
+### Patch Changes
+
+- 42f097b: fix stickbar link will empty content
+
 ## 0.3.3
 
 ### Patch Changes
