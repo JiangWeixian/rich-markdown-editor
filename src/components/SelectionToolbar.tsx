@@ -80,10 +80,7 @@ export default class SelectionToolbar extends React.Component<Props> {
     }
 
     const { dispatch, state } = view;
-    alert(state.selection)
     const { from, to } = state.selection;
-    console.log(view.state.selection)
-    // assert(from !== to);
 
     const href = `creating#${title}…`;
     const markType = state.schema.marks.link;
@@ -169,8 +166,6 @@ export default class SelectionToolbar extends React.Component<Props> {
     if (!items.length) {
       return null;
     }
-
-    console.log(link);
 
     return (
       <Portal>

@@ -21,7 +21,6 @@ type Props = {
   onImageUploadStart?: () => void;
   onImageUploadStop?: () => void;
   onShowToast?: (message: string, id: string) => void;
-  onLinkToolbarOpen: () => void;
   onClose: () => void;
 };
 
@@ -45,7 +44,6 @@ export default class StickBar extends React.Component<Props, State> {
         return this.triggerImagePick();
       case "link": {
         this.insertBlock(item);
-        // this.props.onLinkToolbarOpen();
         return;
       }
       default:
