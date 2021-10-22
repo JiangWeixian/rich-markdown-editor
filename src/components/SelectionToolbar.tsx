@@ -81,6 +81,7 @@ export default class SelectionToolbar extends React.Component<Props> {
 
     const { dispatch, state } = view;
     const { from, to } = state.selection;
+    assert(from !== to);
 
     const href = `creating#${title}…`;
     const markType = state.schema.marks.link;
